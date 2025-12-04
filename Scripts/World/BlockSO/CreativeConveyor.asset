@@ -16,4 +16,4 @@ MonoBehaviour:
   size: 1
   solid: 0
   sprite: {fileID: 11400000, guid: 50607a4dd246c44418a025ea5a4c33da, type: 2}
-  conveyorTickSpeed: 20
+  ticksToMoveConveyorItem: 30

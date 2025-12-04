@@ -35,6 +35,7 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
+        // Build
         if (Input.GetMouseButton(0))
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,11 +43,19 @@ public class BuildingManager : MonoBehaviour
             Build(tilePos.x, tilePos.y, testBlock);
         }
 
+        // Remove
         if (Input.GetMouseButton(1))
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
             RemoveBuilding(tilePos.x, tilePos.y);
+        }
+
+        // Rotate
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            rotation += 1;
+            rotation %= 4;
         }
     }
 
@@ -92,13 +101,13 @@ public class BuildingManager : MonoBehaviour
             building.logic = (BuildingLogic)System.Activator.CreateInstance(block.logicType);
             building.logic.building = building;
 
-            // Se llama al colocarlo
-            building.logic.OnPlaced();
-
             // Activar update
             building.logic.update = true;
 
             LogicManager.Instance.Register(building.logic);
+            
+            // Se llama al colocarlo
+            building.logic.OnPlaced();
         }
 
         // Asignar building a cada tile del área

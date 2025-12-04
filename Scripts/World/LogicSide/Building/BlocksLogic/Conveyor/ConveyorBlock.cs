@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "New Conveyor Block", menuName = "FACTORY/Block/Conveyor Block")]
 public class ConveyorBlock : Block<ConveyorLogic>
 {
-    public int conveyorTickSpeed = 60;
+    public int ticksToMoveConveyorItem = 60;
 }
