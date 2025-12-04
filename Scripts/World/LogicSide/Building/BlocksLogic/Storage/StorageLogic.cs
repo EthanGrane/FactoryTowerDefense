@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StorageLogic : BuildingLogic, IItemAcceptor
+public class StorageLogic : BuildingLogic, IItemAcceptor, IItemProvider
 {
     public Inventory inventory;
 
@@ -19,4 +19,8 @@ public class StorageLogic : BuildingLogic, IItemAcceptor
     {
         return inventory.Add(item, 1);
     }
+    
+    public Item Extract(Item item) => inventory.Remove(item, 1);
+
+    public Item ExtractFirst() => inventory.ExtractFirst();
 }

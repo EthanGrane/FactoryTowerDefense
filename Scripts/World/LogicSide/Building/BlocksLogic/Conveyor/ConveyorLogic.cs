@@ -30,6 +30,7 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         }
         
         MoveItems();
+        PullFromInventoryBehind();
     }
 
     public override void OnPlaced()
@@ -40,6 +41,9 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
 
     private void DrawDebug()
     {
+        return;
+        Vector2Int fwd = ForwardFromRotation(building.rotation);
+        
         Vector3 basePos = new Vector3(building.position.x + 0.5f, building.position.y + 0.5f, 0); 
         float offset = 1f / slotCount;
         
@@ -111,8 +115,10 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         Item item = itemBuffer[index];
         if (item == null) return false;
 
-        // Obtener tile adelante según dirección (aquí asumo dirección UP)
-        Tile fwdTile = World.Instance.GetTile(building.position.x, building.position.y + 1);
+        // Get Forward tile
+        Vector2Int fwd = ForwardFromRotation(building.rotation);
+        Tile fwdTile = World.Instance.GetTile(building.position.x + fwd.x, building.position.y + fwd.y);
+        
         if (fwdTile == null || fwdTile.building == null) return false;
 
         var logic = fwdTile.building.logic;
@@ -128,28 +134,65 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
 
         return false;
     }
-
-    public bool CanAcceptItem()
+    
+    private void PullFromInventoryBehind()
     {
-        return itemBuffer[0] == null;
+        // Solo intentar si el primer slot está vacío
+        if (itemBuffer[0] != null) return;
+    
+        Vector2Int back = BackFromRotation(building.rotation);
+        Tile backTile = World.Instance.GetTile(building.position.x + back.x, building.position.y + back.y);
+    
+        if (backTile == null || backTile.building == null) return;
+
+        var logic = backTile.building.logic;
+    
+        // Extraer de StorageLogic
+        if (logic is IItemProvider itemProvider)
+        {
+            Item extractedItem = itemProvider.ExtractFirst();
+            if (extractedItem != null)
+            {
+                itemBuffer[0] = extractedItem;
+                itemProgress[0] = 0;
+            }
+        }
+    }
+    
+    Vector2Int BackFromRotation(int rotation)
+    {
+        switch (rotation)
+        {
+            case 0: return Vector2Int.down;
+            case 1: return Vector2Int.left;
+            case 2: return Vector2Int.up;
+            case 3: return Vector2Int.right;
+            default: return Vector2Int.down;
+        }
     }
 
-    public bool TryInsert(Item item)
+    Vector2Int ForwardFromRotation(int rotation = 0)
     {
-        // Solo insertar en el primer slot si está vacío
-        if (itemBuffer[0] == null)
+        switch (rotation)
         {
-            itemBuffer[0] = item;
-            itemProgress[0] = 0;
-            return true;
+            case 0:
+                return Vector2Int.up;
+            case 1:
+                return Vector2Int.right;
+            case 2:
+                return Vector2Int.down;
+            case 3:
+                return Vector2Int.left;
+            default:
+                return Vector2Int.up;
         }
-        return false;
     }
 
     public bool CanAccept(Item item)
     {
         // Solo puede aceptar si hay espacio en el primer slot
         return itemBuffer[0] == null;
+
     }
 
     public bool Insert(Item item)
@@ -162,5 +205,4 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         }
         return false;
     }
-
 }

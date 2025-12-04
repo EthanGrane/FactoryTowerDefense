@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Test Storage
   size: 1
-  solid: 1
+  solid: 0
   sprite: {fileID: 11400000, guid: 7034b7146a878504489e207c2d39f3bf, type: 2}
-  slotCount: 999
+  slotCount: 5

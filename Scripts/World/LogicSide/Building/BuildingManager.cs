@@ -40,7 +40,7 @@ public class BuildingManager : MonoBehaviour
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
-            Build(tilePos.x, tilePos.y, testBlock);
+            Build(tilePos.x, tilePos.y, testBlock, rotation);
         }
 
         // Remove

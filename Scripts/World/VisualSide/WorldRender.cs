@@ -45,12 +45,18 @@ public class WorldRenderer : MonoBehaviour
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
 
-        //Terrain visual
+        //Terrain Visual
         terrainTilemap.SetTile(pos, tile.TerrainSo.sprite);
 
+        // Building Visual
         if (tile.building == null)
+        {
             buildingTilemap.SetTile(pos, null);
+        }        
         else
+        {
             buildingTilemap.SetTile(pos, tile.building.block.sprite);
+            buildingTilemap.SetTransformMatrix(pos, Matrix4x4.Rotate(Quaternion.Euler(0, 0, tile.building.rotation * -90)));
+        }    
     }
 }

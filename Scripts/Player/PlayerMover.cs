@@ -12,6 +12,8 @@ public class PlayerMover : MonoBehaviour
     Vector2 lookDirection;
     Vector2 velocity;
     Vector2 smoothDampVelocity; // ← necesario para SmoothDamp
+    
+    Vector2 lastDirection;
 
     private void Awake()
     {
@@ -21,7 +23,11 @@ public class PlayerMover : MonoBehaviour
     private void Update()
     {
         moveInputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        lookDirection = moveInputs.normalized;
+        
+        if(moveInputs.sqrMagnitude != 0)
+            lastDirection = Vector2.Lerp(lookDirection, moveInputs.normalized, Time.deltaTime * 15f);
+        
+        lookDirection =lastDirection;
     }
 
     private void FixedUpdate()
