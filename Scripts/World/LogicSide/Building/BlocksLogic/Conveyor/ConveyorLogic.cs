@@ -33,12 +33,6 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         PullFromInventoryBehind();
     }
 
-    public override void OnPlaced()
-    {
-        itemBuffer[0] = new Item();
-        itemProgress[0] = 0;
-    }
-
     private void DrawDebug()
     {
         Vector2Int fwd = ForwardFromRotation(building.rotation);
