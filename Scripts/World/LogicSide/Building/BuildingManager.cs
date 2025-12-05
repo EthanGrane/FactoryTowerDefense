@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class BuildingManager : MonoBehaviour
@@ -13,8 +14,8 @@ public class BuildingManager : MonoBehaviour
     private World world;
     private WorldRenderer worldRenderer;
 
-    // Bloque de prueba para testear
-    public Block testBlock;
+    public Block[] blocks;
+    public Block selectedBlock;
     public int rotation = 0;
     
     private void Awake()
@@ -40,7 +41,7 @@ public class BuildingManager : MonoBehaviour
         {
             Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
-            Build(tilePos.x, tilePos.y, testBlock, rotation);
+            Build(tilePos.x, tilePos.y, selectedBlock, rotation);
         }
 
         // Remove
@@ -57,6 +58,16 @@ public class BuildingManager : MonoBehaviour
             rotation += 1;
             rotation %= 4;
         }
+
+        for (int i = 0; i < 10; i++)
+        {
+            if (Input.GetKeyDown((KeyCode)(48 + i)))
+            {
+                if (blocks.Length > i && blocks[i])
+                    selectedBlock = blocks[i];
+            }
+        }
+
     }
 
     public bool CanBuild(int startX, int startY, Block block)
@@ -87,6 +98,7 @@ public class BuildingManager : MonoBehaviour
 
     public bool Build(int startX, int startY, Block block, int rotation = 0)
     {
+        if (block == null) return false;
         if (!CanBuild(startX, startY, block))
             return false;
 

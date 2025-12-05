@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f95903e25334a9f9ac77da82455eba7, type: 3}
-  m_Name: CreativeItemStorage
+  m_Name: CreativeItemProvider
   m_EditorClassIdentifier: 
   blockName: Creative Storage
   size: 1
