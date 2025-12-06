@@ -15,7 +15,11 @@ public class Pathfinding : MonoBehaviour
 
     [Header("Pathfinding Settings")]
     public bool canBreakObstacles = true;
-    public float obstacleBreakCostMultiplier = 2f; // Multiplicador de coste por vida del obstáculo
+    public float obstacleBreakCostMultiplier = 1f;
+
+    [Header("Testing")]
+    public bool runTests = false;
+    public KeyCode testKey = KeyCode.T;
 
     private Vector2Int? pointA = null;
     private Vector2Int? pointB = null;
@@ -92,44 +96,127 @@ public class Pathfinding : MonoBehaviour
 
         if (currentPath != null)
         {
-            float totalCost = 0f;
-            float terrainCost = 0f;
-            float obstacleCost = 0f;
-            obstaclesToBreak = new List<Vector2Int>();
-            
-            Tile[,] tiles = World.Instance.GetTiles();
-            
-            for (int i = 1; i < currentPath.Count; i++)
-            {
-                Vector2Int pos = currentPath[i];
-                Tile tile = tiles[pos.x, pos.y];
-                
-                // Coste de terreno
-                terrainCost += tile.terrainSO.movementCost;
-                
-                // Coste de obstáculos
-                if (tile.building != null && tile.building.block != null && tile.building.block.solid)
-                {
-                    float breakCost = tile.building.block.blockHealth * obstacleBreakCostMultiplier;
-                    obstacleCost += breakCost;
-                    obstaclesToBreak.Add(pos);
-                }
-            }
-            
-            totalCost = terrainCost + obstacleCost;
-            
-            Debug.Log($"=== CAMINO ENCONTRADO ===");
-            Debug.Log($"Pasos totales: {currentPath.Count}");
-            Debug.Log($"Coste terreno: {terrainCost:F2}");
-            Debug.Log($"Coste obstáculos: {obstacleCost:F2}");
-            Debug.Log($"Obstáculos a romper: {obstaclesToBreak.Count}");
-            Debug.Log($"COSTE TOTAL: {totalCost:F2}");
+            PrintPathDetails(currentPath, "CAMINO ENCONTRADO");
         }
         else
         {
             Debug.Log("No se encontró camino");
             obstaclesToBreak = null;
         }
+    }
+
+    private void PrintPathDetails(List<Vector2Int> path, string title)
+    {
+        float totalCost = 0f;
+        float terrainCost = 0f;
+        float obstacleCost = 0f;
+        obstaclesToBreak = new List<Vector2Int>();
+        
+        Tile[,] tiles = World.Instance.GetTiles();
+        
+        for (int i = 1; i < path.Count; i++)
+        {
+            Vector2Int pos = path[i];
+            Tile tile = tiles[pos.x, pos.y];
+            
+            // Coste de terreno
+            terrainCost += tile.terrainSO.movementCost;
+            
+            // Coste de obstáculos
+            if (tile.building != null && tile.building.block != null && tile.building.block.solid)
+            {
+                float breakCost = tile.building.block.blockHealth * obstacleBreakCostMultiplier;
+                obstacleCost += breakCost;
+                obstaclesToBreak.Add(pos);
+            }
+        }
+        
+        totalCost = terrainCost + obstacleCost;
+        
+        Debug.Log($"=== {title} ===");
+        Debug.Log($"Pasos totales: {path.Count}");
+        Debug.Log($"Coste terreno: {terrainCost:F2}");
+        Debug.Log($"Coste obstáculos: {obstacleCost:F2}");
+        Debug.Log($"Obstáculos a romper: {obstaclesToBreak.Count}");
+        Debug.Log($"COSTE TOTAL: {totalCost:F2}");
+    }
+
+    private void RunPathfindingTests()
+    {
+        Debug.Log("========================================");
+        Debug.Log("INICIANDO TESTS DE PATHFINDING");
+        Debug.Log("========================================");
+
+        // TEST 1: 100 tiles vs 1 obstáculo con vida 50
+        Test_LongPathVsObstacle();
+
+        // TEST 2: Comparar diferentes multiplicadores
+        Test_MultiplierComparison();
+
+        Debug.Log("========================================");
+        Debug.Log("TESTS COMPLETADOS");
+        Debug.Log("========================================");
+    }
+
+    private void Test_LongPathVsObstacle()
+    {
+        Debug.Log("\n--- TEST 1: 100 Tiles (coste 1) vs 1 Obstáculo (vida 50) ---");
+        
+        // Escenario teórico
+        float longPathCost = 100 * 1f; // 100 tiles con coste 1
+        float obstaclePathCost = 50 * obstacleBreakCostMultiplier; // 1 obstáculo con 50 vida
+        
+        Debug.Log($"Camino largo (100 tiles): {longPathCost}");
+        Debug.Log($"Romper obstáculo (50 vida × {obstacleBreakCostMultiplier}): {obstaclePathCost}");
+        
+        if (longPathCost < obstaclePathCost)
+        {
+            Debug.Log($"✓ RESULTADO: Es más barato rodear ({longPathCost} < {obstaclePathCost})");
+        }
+        else if (longPathCost > obstaclePathCost)
+        {
+            Debug.Log($"✓ RESULTADO: Es más barato romper ({obstaclePathCost} < {longPathCost})");
+        }
+        else
+        {
+            Debug.Log($"✓ RESULTADO: Ambos caminos cuestan igual ({longPathCost})");
+        }
+
+        // Si hay puntos A y B establecidos, probar con el mapa real
+        if (pointA.HasValue && pointB.HasValue)
+        {
+            Debug.Log("\n--- Probando en el mapa actual ---");
+            List<Vector2Int> path = FindPath(pointA.Value, pointB.Value);
+            if (path != null)
+            {
+                PrintPathDetails(path, "Camino calculado en mapa real");
+            }
+        }
+    }
+
+    private void Test_MultiplierComparison()
+    {
+        Debug.Log("\n--- TEST 2: Comparación de Multiplicadores ---");
+        
+        float obstacleHealth = 50f;
+        float[] multipliers = { 0.5f, 1f, 2f, 3f, 5f };
+        
+        Debug.Log($"Para un obstáculo con {obstacleHealth} de vida:");
+        foreach (float mult in multipliers)
+        {
+            float cost = obstacleHealth * mult;
+            Debug.Log($"  Multiplicador {mult}: Coste = {cost}");
+            
+            // Comparar con camino largo
+            if (cost < 100)
+                Debug.Log($"    → Más barato que 100 tiles");
+            else if (cost > 100)
+                Debug.Log($"    → Más caro que 100 tiles");
+            else
+                Debug.Log($"    → Igual que 100 tiles");
+        }
+
+        Debug.Log($"\nMultiplicador actual: {obstacleBreakCostMultiplier}");
     }
 
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end)

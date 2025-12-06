@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   terrainName: Stone
-  solid: 1
+  solid: 0
   sprite: {fileID: 11400000, guid: 5cbce5446e14c2e438971c1656c3e84f, type: 2}
   movementCost: 1
