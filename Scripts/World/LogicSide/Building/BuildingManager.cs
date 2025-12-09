@@ -132,14 +132,13 @@ public class BuildingManager : MonoBehaviour
                 Tile tile = tiles[tx, ty];
 
                 tile.building = building;
-                worldRenderer.SetTileVisual(tx, ty, tile);
 
-                /*
                 if (block.solid)
                     buildingCollider.SetTile(new Vector3Int(tx, ty, 0), colliderTile);
-                    */
             }
         }
+        worldRenderer.SetTileVisual(startX, startY, tiles[startX,startY]);
+
 
         return true;
     }
@@ -147,17 +146,35 @@ public class BuildingManager : MonoBehaviour
 
     public void RemoveBuilding(int startX, int startY)
     {
-        if(world == null) world = World.Instance;
-        Tile tile = world.GetTile(startX, startY);
+        if (world == null) world = World.Instance;
 
-        if (tile == null || tile.building == null) return;
+        Tile origin = world.GetTile(startX, startY);
+        if (origin == null || origin.building == null) return;
 
-        Building building = tile.building;
-        tile.building = null; // Borra el building del tile
-        worldRenderer.SetTileVisual(startX, startY, tile);
-        buildingCollider.SetTile(new Vector3Int(startX, startY, 0), null);
-        
+        Building building = origin.building;
+        Vector2Int buildingPos = building.position;
+        int size = building.block.size;
+
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                int tx = buildingPos.x + x;
+                int ty = buildingPos.y + y;
+
+                Tile t = world.GetTile(tx, ty);
+                if (t != null)
+                {
+                    t.building = null;
+                    worldRenderer.SetTileVisual(tx, ty, t);
+                }
+
+                buildingCollider.SetTile(new Vector3Int(tx, ty, 0), null);
+            }
+        }
+
         LogicManager.Instance.Unregister(building.logic);
     }
+
 
 }

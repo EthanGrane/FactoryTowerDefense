@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ConveyorRender : MonoBehaviour
 {
-    // Identificador único para cada posición de item (conveyor específico + índice de slot)
-    // Necesario porque múltiples conveyors pueden tener el mismo tipo de Item
+    // Clase usada para identificar de forma única cada slot visual de cada conveyor
     private class ItemSlot
     {
         public ConveyorLogic conveyor;
@@ -23,15 +22,19 @@ public class ConveyorRender : MonoBehaviour
         }
     }
 
-    // Diccionario que mapea cada slot a su GameObject visual
+    // Mapa que asocia cada slot lógico a su GameObject visual
     private Dictionary<ItemSlot, GameObject> activeItems = new Dictionary<ItemSlot, GameObject>();
-    public GameObject itemPrefab; // Prefab con SpriteRenderer para mostrar items
+
+    public GameObject itemPrefab;
     public int poolSize = 50;
-    private Queue<GameObject> pool = new Queue<GameObject>(); // Pool de objetos reutilizables
+
+    // Pool para no instanciar constantemente
+    private Queue<GameObject> pool = new Queue<GameObject>();
+
 
     void Awake()
     {
-        // Inicializar pool de GameObjects
+        // Se prepara el pool inicial de objetos visuales inactivos
         for (int i = 0; i < poolSize; i++)
         {
             GameObject go = Instantiate(itemPrefab);
@@ -40,48 +43,53 @@ public class ConveyorRender : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
-        // Suscribirse al evento de tick para actualizar visuales cada frame lógico
+        // Cada tick lógico del juego se actualizan las posiciones visuales
         LogicManager.Instance.OnTick += RenderConveyorItems;
     }
 
+
     void RenderConveyorItems()
     {
+        // Lista de conveyors activos en el mundo
         ConveyorLogic[] conveyorBlocks = LogicManager.Instance.GetLogicByType<ConveyorLogic>();
-        HashSet<ItemSlot> stillActive = new HashSet<ItemSlot>(); // Slots que siguen activos este frame
 
-        // Iterar por todos los conveyors del mundo
+        // Se registran los slots que siguen existiendo este tick
+        HashSet<ItemSlot> stillActive = new HashSet<ItemSlot>();
+
+        // Recorre todos los conveyors
         for (int i = 0; i < conveyorBlocks.Length; i++)
         {
             var conveyor = conveyorBlocks[i];
-            
-            // Calcular vectores de dirección según la rotación del conveyor
+
+            // Dirección hacia la que empuja el conveyor según su rotación
             Vector2Int fwd = conveyor.ForwardFromRotation(conveyor.building.rotation);
 
-            // Centro del tile
+            // Centro del tile del conveyor
             Vector3 basePos = new Vector3(
                 conveyor.building.position.x + 0.5f,
                 conveyor.building.position.y + 0.5f,
                 0
             );
 
-            // NUEVO: borde trasero del conveyor (corrige el +0.5f)
+            // Punto inicial donde empieza el movimiento del item (ajustado ligeramente hacia atrás)
             Vector3 startPos = basePos - new Vector3(fwd.x, fwd.y, 0) * 0.6f;
 
             float slotDistance = 1f / ConveyorLogic.SLOT_COUNT;
 
-            // Iterar por cada slot del buffer de items
+            // Recorre los slots internos del conveyor
             for (int j = 0; j < conveyor.itemBuffer.Length; j++)
             {
                 Item bufferItem = conveyor.itemBuffer[j];
                 if (bufferItem == null) continue;
 
-                // Crear identificador único
+                // Slot único usado como llave del diccionario
                 ItemSlot slot = new ItemSlot { conveyor = conveyor, slotIndex = j };
                 stillActive.Add(slot);
 
-                // Obtener / crear visual
+                // Obtiene el objeto visual o crea uno del pool
                 if (!activeItems.TryGetValue(slot, out GameObject visual))
                 {
                     visual = pool.Count > 0 ? pool.Dequeue() : Instantiate(itemPrefab);
@@ -89,23 +97,28 @@ public class ConveyorRender : MonoBehaviour
                     activeItems[slot] = visual;
                 }
 
-                // Sprite del item
+                // Aplica el sprite del item
                 visual.GetComponent<SpriteRenderer>().sprite = bufferItem.icon;
 
-                // Progreso 0–1
+                // Avance del item dentro del conveyor (0 → inicio del slot, 1 → final)
                 float progress = conveyor.GetItemProgressNormalized(j);
+
+                // Se calcula el rango de movimiento de ese slot
                 float slotStart = j * slotDistance;
                 float slotEnd   = (j + 1) * slotDistance;
+
+                // Posición interpolada dentro de ese rango
                 float lerpedPosition = Mathf.Lerp(slotStart, slotEnd, progress);
 
-                // Offset correcto desde el borde trasero
+                // Offset final en el espacio del conveyor
                 Vector3 slotOffset = new Vector3(fwd.x, fwd.y, 0) * lerpedPosition;
 
+                // Posición real donde se dibuja el item
                 visual.transform.position = startPos + slotOffset;
             }
         }
 
-        // Limpiar visuales de slots que ya no existen
+        // Limpieza de items visuales que ya no están en ningún slot este tick
         List<ItemSlot> toRemove = new List<ItemSlot>();
         foreach (var kvp in activeItems)
         {
@@ -117,6 +130,7 @@ public class ConveyorRender : MonoBehaviour
             }
         }
 
+        // Eliminación real del diccionario
         foreach (var slot in toRemove)
             activeItems.Remove(slot);
     }

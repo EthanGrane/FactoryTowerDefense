@@ -46,19 +46,29 @@ public class WorldRenderer : MonoBehaviour
     {
         Vector3Int pos = new Vector3Int(x, y, 0);
 
-        //Terrain Visual
+        // Terrain Visual
         terrainTilemap.SetTile(pos, tile.terrainSO.sprite);
 
         // Building Visual
         if (tile.building == null)
         {
             buildingTilemap.SetTile(pos, null);
+            // Also clear flags so no stale transform remains:
+            buildingTilemap.SetTransformMatrix(pos, Matrix4x4.identity);
         }        
         else
         {
             buildingTilemap.SetTile(pos, tile.building.block.sprite);
-            buildingTilemap.SetTransformMatrix(pos, Matrix4x4.Rotate(Quaternion.Euler(0, 0, tile.building.rotation * -90)));
-        }    
+
+            int size = tile.building.block.size;
+
+            Vector3 centerOffset = new Vector3((size - 1) * 0.5f, (size - 1) * 0.5f, 0f);
+            Quaternion rot = Quaternion.Euler(0f, 0f, tile.building.rotation * -90f);
+            Matrix4x4 trs = Matrix4x4.TRS(centerOffset, rot, Vector3.one);
+
+            buildingTilemap.SetTransformMatrix(pos, trs);
+        }
     }
+
     
 }
