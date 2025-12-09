@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TestBuilding
+  m_Name: Storage
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 609926325, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  m_Sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

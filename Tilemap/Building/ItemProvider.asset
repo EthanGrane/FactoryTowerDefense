@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TestBuildingYellow
+  m_Name: ItemProvider
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 03956e634fe968148b74eb5bdd2b96c4, type: 3}
-  m_Color: {r: 1, g: 0.6979646, b: 0, a: 1}
+  m_Sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Transform:
     e00: 1
     e01: 0

@@ -15,5 +15,6 @@ MonoBehaviour:
   blockName: Test Storage
   size: 1
   solid: 0
-  sprite: {fileID: 11400000, guid: 7034b7146a878504489e207c2d39f3bf, type: 2}
+  sprite: {fileID: 11400000, guid: bd5e1f7bad2ad6c4d8c87da2d2f6e57a, type: 2}
+  blockHealth: 100
   slotCount: 999
