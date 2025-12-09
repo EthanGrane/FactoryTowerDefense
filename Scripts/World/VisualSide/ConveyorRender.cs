@@ -58,23 +58,30 @@ public class ConveyorRender : MonoBehaviour
             
             // Calcular vectores de dirección según la rotación del conveyor
             Vector2Int fwd = conveyor.ForwardFromRotation(conveyor.building.rotation);
-            Vector2Int right = new Vector2Int(-fwd.y, fwd.x); // Perpendicular a forward
-            
-            // Posición central del tile del conveyor
-            Vector3 basePos = new Vector3(conveyor.building.position.x + 0.5f, conveyor.building.position.y + 0.5f, 0);
-            float slotDistance = 1f / ConveyorLogic.SLOT_COUNT; // Distancia entre cada slot
+
+            // Centro del tile
+            Vector3 basePos = new Vector3(
+                conveyor.building.position.x + 0.5f,
+                conveyor.building.position.y + 0.5f,
+                0
+            );
+
+            // NUEVO: borde trasero del conveyor (corrige el +0.5f)
+            Vector3 startPos = basePos - new Vector3(fwd.x, fwd.y, 0) * 0.6f;
+
+            float slotDistance = 1f / ConveyorLogic.SLOT_COUNT;
 
             // Iterar por cada slot del buffer de items
             for (int j = 0; j < conveyor.itemBuffer.Length; j++)
             {
                 Item bufferItem = conveyor.itemBuffer[j];
-                if (bufferItem == null) continue; // Slot vacío, siguiente
+                if (bufferItem == null) continue;
 
-                // Crear identificador único para este slot
+                // Crear identificador único
                 ItemSlot slot = new ItemSlot { conveyor = conveyor, slotIndex = j };
-                stillActive.Add(slot); // Marcar como activo
+                stillActive.Add(slot);
 
-                // Obtener o crear el GameObject visual para este slot
+                // Obtener / crear visual
                 if (!activeItems.TryGetValue(slot, out GameObject visual))
                 {
                     visual = pool.Count > 0 ? pool.Dequeue() : Instantiate(itemPrefab);
@@ -82,34 +89,36 @@ public class ConveyorRender : MonoBehaviour
                     activeItems[slot] = visual;
                 }
 
-                // Actualizar sprite según el item
+                // Sprite del item
                 visual.GetComponent<SpriteRenderer>().sprite = bufferItem.icon;
-                
-                // Calcular posición interpolada del item según su progreso
-                float progress = conveyor.GetItemProgressNormalized(j); // 0-1
-                float slotStart = j * slotDistance; // Inicio del slot actual
-                float slotEnd = (j + 1) * slotDistance; // Final del slot (inicio del siguiente)
-                
-                // Interpolar posición entre inicio y fin del slot
+
+                // Progreso 0–1
+                float progress = conveyor.GetItemProgressNormalized(j);
+                float slotStart = j * slotDistance;
+                float slotEnd   = (j + 1) * slotDistance;
                 float lerpedPosition = Mathf.Lerp(slotStart, slotEnd, progress);
-                
-                // Aplicar offset en dirección forward del conveyor
+
+                // Offset correcto desde el borde trasero
                 Vector3 slotOffset = new Vector3(fwd.x, fwd.y, 0) * lerpedPosition;
-                visual.transform.position = basePos + slotOffset;
+
+                visual.transform.position = startPos + slotOffset;
             }
         }
 
-        // Limpiar visuales de slots que ya no existen (items consumidos/movidos)
+        // Limpiar visuales de slots que ya no existen
         List<ItemSlot> toRemove = new List<ItemSlot>();
         foreach (var kvp in activeItems)
         {
             if (!stillActive.Contains(kvp.Key))
             {
-                kvp.Value.SetActive(false); // Ocultar
-                pool.Enqueue(kvp.Value); // Devolver al pool
+                kvp.Value.SetActive(false);
+                pool.Enqueue(kvp.Value);
                 toRemove.Add(kvp.Key);
             }
         }
-        foreach (var slot in toRemove) activeItems.Remove(slot);
+
+        foreach (var slot in toRemove)
+            activeItems.Remove(slot);
     }
+
 }

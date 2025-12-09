@@ -120,9 +120,12 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         if (fwdTile == null || fwdTile.building == null) return false;
 
         var logic = fwdTile.building.logic;
-
+        
         if (logic is IItemAcceptor acceptor)
         {
+            if (logic is ConveyorLogic)
+                if((logic.building.rotation + 2) % 4 == building.rotation) return false;
+            
             if (acceptor.CanAccept(item) && acceptor.Insert(item))
             {
                 itemBuffer[index] = null;

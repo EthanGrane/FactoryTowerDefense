@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoneDrillBlock
   m_EditorClassIdentifier: 
   blockName: Stone Drill
-  size: 1
+  size: 2
   solid: 0
   sprite: {fileID: 11400000, guid: 24077ca4232ab154c8bc0bcd0485fde8, type: 2}
   blockHealth: 100
