@@ -26,8 +26,16 @@ public class DrillLogic : BuildingLogic, IItemProvider
 
         Tile tile = world.GetTile(building.position);
         DrillBlock drillBlock = building.block as DrillBlock;
-        if(tile.terrainSO ==  drillBlock.terrainSO)
-            itemExtractionValue += drillBlock.efficiencyPerTile / LogicManager.TICKS_PER_SECOND;
+        Vector2Int pos = building.position;
+
+        for (int x = 0; x < tile.building.block.size; x++)
+        {
+            for (int y = 0; y < tile.building.block.size; y++)
+            {
+                if (World.Instance.GetTile(x + pos.x,y+ pos.y).terrainSO == drillBlock.terrainSO)
+                    itemExtractionValue += drillBlock.efficiencyPerTile / LogicManager.TICKS_PER_SECOND;
+            }
+        }
         
         if(itemExtractionValue >= 1)
         {
