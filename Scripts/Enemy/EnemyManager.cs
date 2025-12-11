@@ -71,6 +71,21 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+
+    public Enemy[] GetEnemiesOnRadius(Vector2 center, float radius)
+    {
+        List<Enemy> enemiesDetected = new List<Enemy>();
+        
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if(Vector2.Distance(center, enemies[i].transform.position) <= radius)
+            {
+                enemiesDetected.Add(enemies[i]);
+            }        
+        }
+
+        return enemiesDetected.ToArray();
+    }
     
     public Enemy[] GetAllEnemies() => enemies.ToArray();
 }

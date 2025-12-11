@@ -23,9 +23,9 @@ public class ProjectileManager : MonoBehaviour
 
             float step = p.speed * dt;
             p.position += p.direction * step;
-            p.remainingRange -= step;
+            p.lifetme -= dt;
 
-            if (p.remainingRange <= 0f || p.isDead)
+            if (p.lifetme <= 0f || p.isDead)
             {
                 projectiles.RemoveAt(i);
                 i--;

@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public float collisionRadius = 0.5f;
     private bool isAlive = true;
 
+    private Vector2 moveDirection = Vector2.up;
+
     private void Start()
     {
         EnemyManager.Instance.ApplyTier(this, currentTier);
@@ -17,7 +19,7 @@ public class Enemy : MonoBehaviour
         if (!isAlive) return;
         
         // direction is pathFinsing route
-        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
         
         // Collide with solidblocks? 
     }
@@ -41,4 +43,8 @@ public class Enemy : MonoBehaviour
         isAlive = false;
         Destroy(gameObject);
     }
+    
+    public Vector2 GetPosition() => transform.position;
+    public float GetSpeed() => moveSpeed;
+    public Vector2 GetVelocity() => moveDirection * moveSpeed;
 }
