@@ -18,5 +18,5 @@ MonoBehaviour:
   sprite: {fileID: 11400000, guid: 24077ca4232ab154c8bc0bcd0485fde8, type: 2}
   blockHealth: 100
   terrainSO: {fileID: 11400000, guid: 77871cddcf0608241abb53d135998c9a, type: 2}
-  efficiencyPerTile: 0.15
+  efficiencyPerTile: 0.2
   outputItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
