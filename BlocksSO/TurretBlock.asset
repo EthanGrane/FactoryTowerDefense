@@ -15,7 +15,8 @@ MonoBehaviour:
   blockName: Cannon Turret
   size: 1
   solid: 0
-  sprite: {fileID: 11400000, guid: 6dfb166b987e2b347a5da6256f57d1f2, type: 2}
+  blockTile: {fileID: 11400000, guid: 6dfb166b987e2b347a5da6256f57d1f2, type: 2}
+  sprite: {fileID: 7482667652216324306, guid: d379b698fddb69e48b523eeb2c288f2a, type: 3}
   blockHealth: 100
   turretRange: 12
   projectileRateOnTicks: 160

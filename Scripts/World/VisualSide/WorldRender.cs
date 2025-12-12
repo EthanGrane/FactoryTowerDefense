@@ -58,7 +58,7 @@ public class WorldRenderer : MonoBehaviour
         }        
         else
         {
-            buildingTilemap.SetTile(pos, tile.building.block.sprite);
+            buildingTilemap.SetTile(pos, tile.building.block.blockTile);
 
             int size = tile.building.block.size;
 

@@ -7,7 +7,8 @@ public class Block : ScriptableObject
     public string blockName;
     public int size = 1;
     public bool solid;
-    public TileBase sprite;
+    public TileBase blockTile;
+    public Sprite sprite;
     [Space]
     public float blockHealth = 100;
     

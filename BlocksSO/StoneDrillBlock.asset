@@ -15,7 +15,8 @@ MonoBehaviour:
   blockName: Stone Drill
   size: 2
   solid: 0
-  sprite: {fileID: 11400000, guid: 24077ca4232ab154c8bc0bcd0485fde8, type: 2}
+  blockTile: {fileID: 11400000, guid: 24077ca4232ab154c8bc0bcd0485fde8, type: 2}
+  sprite: {fileID: -1416648625, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
   terrainSO: {fileID: 11400000, guid: 77871cddcf0608241abb53d135998c9a, type: 2}
   efficiencyPerTile: 0.2

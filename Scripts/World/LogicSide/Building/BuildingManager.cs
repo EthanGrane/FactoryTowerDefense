@@ -8,15 +8,20 @@ public class BuildingManager : MonoBehaviour
 {
     public static BuildingManager Instance { get; private set; }
 
+    [Header("Tilemaps")]
     public Tilemap buildingCollider;
     public TileBase colliderTile;
     
     public Block[] blocks;
-    public int rotation = 0;
+    
+    [Header("Building Ghost")]
+    public GameObject ghostPrefab;
+    GameObject ghostObject;
     
     private World world;
     private WorldRenderer worldRenderer;
     Block selectedBlock = null;
+    int rotation = 0;
     
     private void Awake()
     {
@@ -32,35 +37,38 @@ public class BuildingManager : MonoBehaviour
     {
         if(worldRenderer == null)
             worldRenderer = WorldRenderer.Instance;
+        
+        ghostObject = Instantiate(ghostPrefab);
     }
 
     private void Update()
     {
-        if (selectedBlock == null) return;
-    
+        if (selectedBlock == null)
+        {
+            ghostObject.SetActive(false);
+            return;
+        }
+        
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
+        
+        ghostObject.SetActive(true);
+        ghostObject.transform.position = new Vector3(tilePos.x + .5f, tilePos.y + .5f, 0);
+        ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
+        ghostObject.GetComponent<SpriteRenderer>().sprite = selectedBlock.sprite;
+        
         // Build
         if (Input.GetMouseButton(0))
         {
-
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
-
-
             bool result = Build(tilePos.x, tilePos.y, selectedBlock, rotation);
-
         }
 
         // Remove
         if (Input.GetMouseButton(1))
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-            
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
             RemoveBuilding(tilePos.x, tilePos.y);
         }
 
