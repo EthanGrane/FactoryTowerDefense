@@ -11,14 +11,15 @@ public class EnemyWavesManager : MonoBehaviour
     public bool autoWave = true;
 
     public Transform enemySpawnPosition;
-    int currentWave = 0;
+    public int currentWave = 0;
 
     private void Start()
     {
         EnemyManager.Instance.onAllEnemiesDead += () =>
         {
+            if (currentWave >= waves.Length - 1)
+                return;
             currentWave++;
-            StartWaveRound();
         };
     }
 

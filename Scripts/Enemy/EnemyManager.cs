@@ -35,9 +35,6 @@ public class EnemyManager : MonoBehaviour
     public void ApplyTier(Enemy enemy, EnemyTierSO tierSo)
     {
         RegisterEnemy(enemy);
-
-        Debug.Log($"TierSO: {tierSo}");
-        Debug.Log($"enemy: {enemy}");
         
         enemy.currentTierSo = tierSo;
         enemy.moveSpeed = tierSo.moveSpeed;
