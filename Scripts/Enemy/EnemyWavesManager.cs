@@ -10,7 +10,7 @@ public class EnemyWavesManager : MonoBehaviour
     public GameObject enemyPrefab;
     public bool autoWave = true;
 
-    public Transform enemySpawnPosition;
+    public EnemySpawnPoint enemySpawnPosition;
     public int currentWave = 0;
 
     private void Start()
@@ -20,6 +20,9 @@ public class EnemyWavesManager : MonoBehaviour
             if (currentWave >= waves.Length - 1)
                 return;
             currentWave++;
+            
+            if(autoWave)
+                StartWaveRound();
         };
     }
 
@@ -38,7 +41,7 @@ public class EnemyWavesManager : MonoBehaviour
         for (int j = 0; j < waveSquad.quantity; j++)
         {
             Vector3 offsetPosition = Random.insideUnitSphere * 5;
-            Enemy enemy = Instantiate(enemyPrefab,enemySpawnPosition.position + offsetPosition, Quaternion.identity).GetComponent<Enemy>();
+            Enemy enemy = Instantiate(enemyPrefab,enemySpawnPosition.transform.position + offsetPosition, Quaternion.identity).GetComponent<Enemy>();
             enemy.enemyWave = currentWave;
             EnemyManager.Instance.ApplyTier(enemy, waveSquad.enemy);
             

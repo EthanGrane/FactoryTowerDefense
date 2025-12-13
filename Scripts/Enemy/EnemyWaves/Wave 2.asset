@@ -15,7 +15,5 @@ MonoBehaviour:
   waves:
   - enemy: {fileID: 11400000, guid: 70f98266b7133304db32d4aad5f1d3fd, type: 2}
     quantity: 30
-    spawnDelay: 0
   - enemy: {fileID: 11400000, guid: ded539d21000c3f47bc3b3a1c5facc37, type: 2}
     quantity: 50
-    spawnDelay: 2

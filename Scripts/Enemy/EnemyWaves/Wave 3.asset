@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - enemy: {fileID: 11400000, guid: 92bc35f15e4ee9d4e866c9deb8dde6ba, type: 2}
-    quantity: 50
-    spawnDelay: 0
+    quantity: 25
   - enemy: {fileID: 11400000, guid: 70f98266b7133304db32d4aad5f1d3fd, type: 2}
-    quantity: 75
-    spawnDelay: 3
+    quantity: 100

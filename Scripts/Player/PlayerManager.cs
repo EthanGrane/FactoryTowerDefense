@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    PlayerSpawnPoint playerSpawnPoint;
+    PlayerBasePoint _playerBasePoint;
     public void Start()
     {
-        playerSpawnPoint = GameObject.FindAnyObjectByType<PlayerSpawnPoint>();
-        transform.position = playerSpawnPoint.transform.position;
+        _playerBasePoint = GameObject.FindAnyObjectByType<PlayerBasePoint>();
+        transform.position = _playerBasePoint.transform.position;
     }
 }

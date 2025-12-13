@@ -53,10 +53,11 @@ public class BuildingManager : MonoBehaviour
             return;
         
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld);
+        Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld );
         
         ghostObject.SetActive(true);
-        ghostObject.transform.position = new Vector3(tilePos.x + .5f, tilePos.y + .5f, 0);
+        Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, (selectedBlock.size - 1) * 0.5f, 0f);
+        ghostObject.transform.position = new Vector3(tilePos.x + .5f + centerOffset.x, tilePos.y + .5f + centerOffset.y, 0);
         ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
         ghostObject.GetComponent<SpriteRenderer>().sprite = selectedBlock.sprite;
         
@@ -85,7 +86,10 @@ public class BuildingManager : MonoBehaviour
     {
         if (blocks.Contains(block))
         {
-            selectedBlock = block;
+            if(selectedBlock == block)
+                selectedBlock = null;
+            else
+                selectedBlock = block;
         }
     }
 
@@ -161,16 +165,19 @@ public class BuildingManager : MonoBehaviour
 
         return true;
     }
-
-
-    public void RemoveBuilding(int startX, int startY)
+    public bool Build(Vector2Int pos, Block block, int rotation = 0) => Build(pos.x, pos.y, block, rotation);
+    
+    public bool RemoveBuilding(int startX, int startY)
     {
         if (world == null) world = World.Instance;
 
         Tile origin = world.GetTile(startX, startY);
-        if (origin == null || origin.building == null) return;
+        if (origin == null || origin.building == null) return false;
 
         Building building = origin.building;
+        
+        if(!building.block.CanBeRemovedByPlayer) return false;
+        
         Vector2Int buildingPos = building.position;
         int size = building.block.size;
 
@@ -193,6 +200,8 @@ public class BuildingManager : MonoBehaviour
         }
 
         LogicManager.Instance.Unregister(building.logic);
+        
+        return true;
     }
 
 

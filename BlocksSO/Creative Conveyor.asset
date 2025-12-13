@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc88a0206268c7641ba2153cfa1c4e4d, type: 3}
-  m_Name: CreativeConveyor
+  m_Name: Creative Conveyor
   m_EditorClassIdentifier: 
   blockName: Creative Conveyor
   size: 1

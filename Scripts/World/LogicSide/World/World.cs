@@ -16,6 +16,9 @@ public class World : MonoBehaviour
     public Tilemap terrainCollider;
     public Tilemap buildingCollider;
 
+    [Header("PlayerBase")]
+    public PlayerBasePoint playerBasePoint;
+    
     private void Awake()
     {
         #region Singleton Awake

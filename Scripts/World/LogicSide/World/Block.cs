@@ -6,11 +6,14 @@ public class Block : ScriptableObject
 {
     public string blockName;
     public int size = 1;
-    public bool solid;
+    [Space]
     public TileBase blockTile;
     public Sprite sprite;
     [Space]
     public float blockHealth = 100;
+    [Space]
+    public bool solid;
+    public bool CanBeRemovedByPlayer = true;
     
     public System.Type logicType;
 }
