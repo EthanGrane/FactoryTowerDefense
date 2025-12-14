@@ -7,10 +7,14 @@ public class ProjectileManager : MonoBehaviour
     public static ProjectileManager instance;
     public List<Projectile> projectiles = new();
 
+    ProjectileVisual projectileVisual;
+    
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        
+        projectileVisual = GetComponent<ProjectileVisual>();
     }
     
     void Update()
@@ -27,6 +31,7 @@ public class ProjectileManager : MonoBehaviour
 
             if (p.lifetme <= 0f || p.isDead)
             {
+                projectileVisual.UnregisterProjectile(p);
                 projectiles.RemoveAt(i);
                 i--;
                 continue;
@@ -58,6 +63,7 @@ public class ProjectileManager : MonoBehaviour
 
     public void RegisterProjectile(Projectile p)
     {
+        projectileVisual.RegisterProjectile(p);
         projectiles.Add(p);
     }
 
