@@ -302,10 +302,9 @@ public class Pathfinding : MonoBehaviour
         return GridToWorld(start);
     }
 
-    public Vector2Int? GetTargetNode()
-    {
-        return pointB;
-    }
+    public Vector2Int? GetTargetNode() => pointB;
+    public Vector2Int? GetStartNode() => pointA;
+    
 
     private bool IsNavigable(Vector2Int pos, Tile[,] tiles)
     {

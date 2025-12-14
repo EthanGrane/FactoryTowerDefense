@@ -54456,6 +54456,18 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[6723].second.m_TileColorIndex
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8014327004851222873, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: orderedTiers.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014327004851222873, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'orderedTiers.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d1d93081e567de4eaed36974a3354b3, type: 2}
+    - target: {fileID: 8014327004851222873, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'orderedTiers.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 192e3770439e53645825a908bf380f89, type: 2}
     - target: {fileID: 8536440791919073977, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: waves.Array.size
       value: 4

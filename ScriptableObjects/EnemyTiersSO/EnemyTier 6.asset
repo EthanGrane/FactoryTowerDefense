@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 821e24f2b447aa748acc2c1ca3cc5b86, type: 3}
-  m_Name: 4
+  m_Name: EnemyTier 6
   m_EditorClassIdentifier: 
   tierName: UNUSED
   sprite: {fileID: -2413806693520163455, guid: 86af2dcd30e119d4f889dc529a5eec6f, type: 3}
-  color: {r: 0.105882354, g: 0.84313726, b: 0, a: 0}
-  moveSpeed: 3
-  tierIndex: 4
+  color: {r: 1, g: 1, b: 1, a: 0}
+  moveSpeed: 12
+  tierIndex: 5

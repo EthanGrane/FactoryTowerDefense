@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(EnemyManager))]
 public class EnemyWavesManager : MonoBehaviour
 {
     public EnemyWaveSO[] waves;
@@ -40,11 +41,10 @@ public class EnemyWavesManager : MonoBehaviour
     {
         for (int j = 0; j < waveSquad.quantity; j++)
         {
-            Vector3 offsetPosition = Random.insideUnitSphere * 5;
-            Enemy enemy = Instantiate(enemyPrefab,enemySpawnPosition.transform.position + offsetPosition, Quaternion.identity).GetComponent<Enemy>();
+            Enemy enemy = Instantiate(enemyPrefab,enemySpawnPosition.transform.position, Quaternion.identity).GetComponent<Enemy>();
             EnemyManager.Instance.ApplyTier(enemy, waveSquad.enemy);
             
-            yield return new WaitForSeconds(1f/waveSquad.quantity);
+            yield return new WaitForSeconds(0.15f);
         }
     }
 }

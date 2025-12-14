@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -14,12 +15,17 @@ public class EnemyManager : MonoBehaviour
 
     public Action<Enemy> onEnemyDie;
     public Action onAllEnemiesDead;
-    
+    public List<Vector2> enemyPath;
     private void Awake()
     {
         Instance = this;
     }
 
+    void Start()
+    {
+        enemyPath = new List<Vector2>();
+    }
+    
     // Obtiene el tier inmediatamente inferior
     public EnemyTierSO GetLowerTier(EnemyTierSO current)
     {
@@ -99,7 +105,47 @@ public class EnemyManager : MonoBehaviour
     }
     
     public Enemy[] GetAllEnemies() => enemies.ToArray();
-    public EnemyTierSO GetTierByIndex(int tierIndex) => orderedTiers[tierIndex];
+    public List<Vector2> CalculatePath()
+    {
+        if (Pathfinding.Instance == null)
+            return null;
+
+        Vector2Int? start = Pathfinding.Instance.GetStartNode();
+        Vector2Int? end   = Pathfinding.Instance.GetTargetNode();
+
+        if (!start.HasValue || !end.HasValue)
+        {
+            return null;
+        }
+
+        List<Vector2Int> gridPath =
+            Pathfinding.Instance.FindPath(start.Value, end.Value);
+
+        if (gridPath == null || gridPath.Count == 0)
+            return null;
+
+        List<Vector2> path = new List<Vector2>(gridPath.Count);
+        foreach (Vector2Int pos in gridPath)
+        {
+            path.Add(new Vector2(
+                pos.x + 0.5f,
+                pos.y + 0.5f
+            ));
+        }
+
+        return path;
+    }
+
+    public List<Vector2> GetPath()
+    {
+       if(enemyPath == null || enemyPath.Count == 0)
+       {
+           enemyPath = new List<Vector2>();
+           enemyPath = CalculatePath();
+       }
+       
+       return enemyPath;
+    }
     
     #region EDITOR HELPER
     #if UNITY_EDITOR

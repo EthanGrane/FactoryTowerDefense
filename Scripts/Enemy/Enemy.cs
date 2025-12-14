@@ -6,9 +6,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     public EnemyTierSO currentTierSo;
-    public float moveSpeed = 2f;
     public float collisionRadius = 0.5f;
-    private Vector2Int currentTarget;
+    [HideInInspector]public float moveSpeed = 2f;
 
     private bool isAlive = true;
 
@@ -24,13 +23,13 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         EnemyManager.Instance.ApplyTier(this, currentTierSo);
-        LogicManager.Instance.OnTick += RecalculatePath;
+        LogicManager.Instance.OnTick += UpdatePath;
     }
 
     private void OnDestroy()
     {
         if (LogicManager.Instance != null)
-            LogicManager.Instance.OnTick -= RecalculatePath;
+            LogicManager.Instance.OnTick -= UpdatePath;
     }
 
     private void Update()
@@ -64,46 +63,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void RecalculatePath()
+    private void UpdatePath()
     {
         if (!isAlive) return;
 
         if (path != null && currentNodeIndex < path.Count)
             return;
 
-        Vector2Int start = WorldPosToGrid(transform.position);
-        Vector2Int? end = Pathfinding.Instance.GetTargetNode();
-
-        currentTarget = end.Value;
-
-        List<Vector2Int> gridPath =
-            Pathfinding.Instance.FindPath(start, end.Value);
-
-        if (gridPath == null || gridPath.Count == 0)
+        List<Vector2> sharedPath = EnemyManager.Instance.GetPath();
+        if (sharedPath == null || sharedPath.Count == 0)
             return;
 
-        path = new List<Vector2>(gridPath.Count);
-        foreach (var p in gridPath)
-            path.Add(GridToWorld(p));
+        path = new List<Vector2>(sharedPath);
 
         currentNodeIndex = 0;
-        
-    }
-    
-    private Vector2Int WorldPosToGrid(Vector2 pos)
-    {
-        return new Vector2Int(
-            Mathf.FloorToInt(pos.x),
-            Mathf.FloorToInt(pos.y)
-        );
-    }
 
-    private Vector2 GridToWorld(Vector2Int grid)
-    {
-        return new Vector2(
-            grid.x + 0.5f,
-            grid.y + 0.5f
-        );
+        if (Vector2.Distance(transform.position, path[0]) <= NODE_REACHED_DIST)
+            currentNodeIndex = 1;
     }
 
     public void TakeDamage(int dmg)
