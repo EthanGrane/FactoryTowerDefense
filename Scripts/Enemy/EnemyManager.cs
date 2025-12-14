@@ -12,19 +12,84 @@ public class EnemyManager : MonoBehaviour
     public EnemyTierSO[] orderedTiers;
     
     public List<Enemy> enemies;
-
+    
+    List<Vector2> enemyPath;
+    
+    // Events
+    public Action OnPathUpdated;
+    
     public Action<Enemy> onEnemyDie;
     public Action onAllEnemiesDead;
-    public List<Vector2> enemyPath;
+    
+    // Requst an path update
+    private bool pathDirty = true;
+    private bool requestUpdateOnNextTick = true;
+
     private void Awake()
     {
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
-        enemyPath = new List<Vector2>();
+        LogicManager.Instance.OnTick += RecalculatePathOnTick;
+        GetPath();
     }
+    
+    /*
+     * Path Funcions
+     */
+    
+    public List<Vector2> GetPath()
+    {
+        if (!pathDirty && enemyPath != null)
+            return enemyPath;
+
+        RecalculatePath();
+        return enemyPath;
+    }
+    
+    public void MarkPathDirty()
+    {
+        pathDirty = true;
+    }
+
+    public void MarkPathDirtyAndUpdate()
+    {
+        MarkPathDirty();
+        requestUpdateOnNextTick = true;
+    }
+    
+    // Private
+
+    private void RecalculatePathOnTick()
+    {
+        if(!requestUpdateOnNextTick && !pathDirty) return;
+        requestUpdateOnNextTick = false;
+        RecalculatePath();
+    }
+    
+    private void RecalculatePath()
+    {
+        pathDirty = false;
+
+        List<Vector2Int> gridPath = Pathfinding.Instance.Calculate();
+        if (gridPath == null || gridPath.Count == 0)
+        {
+            enemyPath = null;
+            return;
+        }
+
+        enemyPath = new List<Vector2>(gridPath.Count);
+        foreach (var p in gridPath)
+            enemyPath.Add(new Vector2(p.x + 0.5f, p.y + 0.5f));
+        
+        OnPathUpdated?.Invoke();
+    }
+    
+    /*
+     *  Enemy Funcions
+     */
     
     // Obtiene el tier inmediatamente inferior
     public EnemyTierSO GetLowerTier(EnemyTierSO current)
@@ -105,47 +170,7 @@ public class EnemyManager : MonoBehaviour
     }
     
     public Enemy[] GetAllEnemies() => enemies.ToArray();
-    public List<Vector2> CalculatePath()
-    {
-        if (Pathfinding.Instance == null)
-            return null;
-
-        Vector2Int? start = Pathfinding.Instance.GetStartNode();
-        Vector2Int? end   = Pathfinding.Instance.GetTargetNode();
-
-        if (!start.HasValue || !end.HasValue)
-        {
-            return null;
-        }
-
-        List<Vector2Int> gridPath =
-            Pathfinding.Instance.FindPath(start.Value, end.Value);
-
-        if (gridPath == null || gridPath.Count == 0)
-            return null;
-
-        List<Vector2> path = new List<Vector2>(gridPath.Count);
-        foreach (Vector2Int pos in gridPath)
-        {
-            path.Add(new Vector2(
-                pos.x + 0.5f,
-                pos.y + 0.5f
-            ));
-        }
-
-        return path;
-    }
-
-    public List<Vector2> GetPath()
-    {
-       if(enemyPath == null || enemyPath.Count == 0)
-       {
-           enemyPath = new List<Vector2>();
-           enemyPath = CalculatePath();
-       }
-       
-       return enemyPath;
-    }
+    
     
     #region EDITOR HELPER
     #if UNITY_EDITOR

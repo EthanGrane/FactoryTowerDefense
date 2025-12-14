@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
-    private void Start()
-    {
-        Pathfinding.Instance.SetStartPoint(new Vector2Int((int)transform.position.x, (int)transform.position.y));
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;

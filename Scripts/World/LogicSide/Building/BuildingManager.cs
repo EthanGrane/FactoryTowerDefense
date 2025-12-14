@@ -160,9 +160,13 @@ public class BuildingManager : MonoBehaviour
                     buildingCollider.SetTile(new Vector3Int(tx, ty, 0), colliderTile);
             }
         }
+        
         worldRenderer.SetTileVisual(startX, startY, tiles[startX,startY]);
 
 
+        if(building.block.solid)
+            EnemyManager.Instance.MarkPathDirtyAndUpdate();
+        
         return true;
     }
     public bool Build(Vector2Int pos, Block block, int rotation = 0) => Build(pos.x, pos.y, block, rotation);
@@ -200,6 +204,9 @@ public class BuildingManager : MonoBehaviour
         }
 
         LogicManager.Instance.Unregister(building.logic);
+        
+        if(building.block.solid)
+            EnemyManager.Instance.MarkPathDirtyAndUpdate();
         
         return true;
     }
