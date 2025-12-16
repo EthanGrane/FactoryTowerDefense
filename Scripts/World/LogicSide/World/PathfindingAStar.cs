@@ -286,7 +286,7 @@ public class PathfindingAStar : MonoBehaviour
         {
             var basePoint = FindFirstObjectByType<PlayerBasePoint>();
             if (basePoint != null) 
-                end = new Vector2Int((int)basePoint.transform.position.x, (int)basePoint.transform.position.y);
+                end = new Vector2Int((int)basePoint.transform.position.x + 1, (int)basePoint.transform.position.y + 1);
         }
     }
 

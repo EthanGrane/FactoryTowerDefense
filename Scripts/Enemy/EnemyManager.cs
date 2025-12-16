@@ -110,4 +110,6 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+    
+    public int GetEnemiesAliveCount() => enemies.Count;
 }

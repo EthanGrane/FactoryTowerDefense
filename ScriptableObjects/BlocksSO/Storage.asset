@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b39ef3a5fcd64134a9e7e5e9d54e49f7, type: 3}
-  m_Name: CreativeWall
+  m_Script: {fileID: 11500000, guid: a0ab15585d485ce49b2fb50e737b0b20, type: 3}
+  m_Name: Storage
   m_EditorClassIdentifier: 
-  blockName: Creative Wall
+  blockName: Storage
   size: 1
-  blockTile: {fileID: 11400000, guid: 6dfb166b987e2b347a5da6256f57d1f2, type: 2}
-  sprite: {fileID: 7482667652216324306, guid: d379b698fddb69e48b523eeb2c288f2a, type: 3}
-  blockHealth: 9999
+  blockTile: {fileID: 11400000, guid: 4a51917feed9e9a4f8ea2cb07628c4c1, type: 2}
+  sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  blockHealth: 100
   solid: 1
   CanBeRemovedByPlayer: 1
+  slotCount: 999

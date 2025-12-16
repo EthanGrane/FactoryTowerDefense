@@ -9,19 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd8eef5524ab4d17ac8ebc879af0906a, type: 3}
-  m_Name: Turret Block
+  m_Script: {fileID: 11500000, guid: b39ef3a5fcd64134a9e7e5e9d54e49f7, type: 3}
+  m_Name: Wall
   m_EditorClassIdentifier: 
-  blockName: Cannon Turret
+  blockName: Wall
   size: 1
   blockTile: {fileID: 11400000, guid: 6dfb166b987e2b347a5da6256f57d1f2, type: 2}
   sprite: {fileID: 7482667652216324306, guid: d379b698fddb69e48b523eeb2c288f2a, type: 3}
-  blockHealth: 100
+  blockHealth: 9999
   solid: 1
   CanBeRemovedByPlayer: 1
-  turretRange: 12
-  projectileRateOnTicks: 160
-  projectileSpeed: 30
-  projectileLifetime: 2
-  projectileCollisionRadius: 0.25
-  projectileDamage: 1

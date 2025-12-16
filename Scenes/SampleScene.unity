@@ -265,33 +265,85 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.a
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 0.27450982
       objectReference: {fileID: 0}
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2478921820637882418, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Parameters.colorGradient.key1.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2718986572770071281, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_Name
       value: World
       objectReference: {fileID: 0}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: blocks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6fe6dcabacddf1c4fb1f25aa25698261, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e4b7106a75f4ccd44bff3a8026804042, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a03df80d0198eab4a939281645db4622, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8e3de3814091c644da9f96307cb266df, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6735631d3ffe5374bb582de86b18af70, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 705633d42f02a8c458e3d6a2d15e0082, type: 2}
+    - target: {fileID: 2787098170590104885, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'blocks.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 705633d42f02a8c458e3d6a2d15e0082, type: 2}
     - target: {fileID: 3685945895045405006, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: wallProximityCost
       value: 15

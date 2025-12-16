@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
@@ -20,7 +21,7 @@ public class BuildingManager : MonoBehaviour
     
     private World world;
     private WorldRenderer worldRenderer;
-    Block selectedBlock = null;
+    [CanBeNull] Block selectedBlock = null;
     int rotation = 0;
     
     private void Awake()
@@ -43,23 +44,23 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
-        if (selectedBlock == null)
-        {
-            ghostObject.SetActive(false);
-            return;
-        }
-        
+
         if (EventSystem.current.IsPointerOverGameObject())
             return;
         
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld );
         
-        ghostObject.SetActive(true);
-        Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, (selectedBlock.size - 1) * 0.5f, 0f);
-        ghostObject.transform.position = new Vector3(tilePos.x + .5f + centerOffset.x, tilePos.y + .5f + centerOffset.y, 0);
-        ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
-        ghostObject.GetComponent<SpriteRenderer>().sprite = selectedBlock.sprite;
+        if (selectedBlock == null)
+            ghostObject.SetActive(false);
+        else
+        {
+            ghostObject.SetActive(true);
+            Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, (selectedBlock.size - 1) * 0.5f, 0f);
+            ghostObject.transform.position = new Vector3(tilePos.x + .5f + centerOffset.x, tilePos.y + .5f + centerOffset.y, 0);
+            ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
+            ghostObject.GetComponent<SpriteRenderer>().sprite = selectedBlock.sprite;   
+        }
         
         // Build
         if (Input.GetMouseButton(0))
@@ -70,7 +71,10 @@ public class BuildingManager : MonoBehaviour
         // Remove
         if (Input.GetMouseButton(1))
         {
-            RemoveBuilding(tilePos.x, tilePos.y);
+            if(selectedBlock == null)
+                RemoveBuilding(tilePos.x, tilePos.y);
+            else
+                selectedBlock = null;
         }
 
         // Rotate

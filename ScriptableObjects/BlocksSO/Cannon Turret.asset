@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8eef5524ab4d17ac8ebc879af0906a, type: 3}
+  m_Name: Cannon Turret
+  m_EditorClassIdentifier: 
+  blockName: Cannon Turret
+  size: 1
+  blockTile: {fileID: 11400000, guid: f7bdd16dff9c57e47bfc847d727b67a2, type: 2}
+  sprite: {fileID: 21300000, guid: 234c7e749e9162547b6c99b6c7dce0e5, type: 3}
+  blockHealth: 100
+  solid: 1
+  CanBeRemovedByPlayer: 1
+  turretRange: 9
+  projectileRateOnTicks: 160
+  projectileSpeed: 30
+  projectileLifetime: 2
+  projectileCollisionRadius: 0.25
+  projectileDamage: 1

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ab15585d485ce49b2fb50e737b0b20, type: 3}
-  m_Name: Creative Storage
+  m_Script: {fileID: 11500000, guid: 7f95903e25334a9f9ac77da82455eba7, type: 3}
+  m_Name: Item Provider
   m_EditorClassIdentifier: 
-  blockName: Test Storage
+  blockName: Creative Item Provider
   size: 1
-  blockTile: {fileID: 11400000, guid: 4a51917feed9e9a4f8ea2cb07628c4c1, type: 2}
+  blockTile: {fileID: 11400000, guid: bd5e1f7bad2ad6c4d8c87da2d2f6e57a, type: 2}
   sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
-  solid: 1
+  solid: 0
   CanBeRemovedByPlayer: 1
-  slotCount: 999
+  item: {fileID: 11400000, guid: fae9d50fde3c4d8449c5d71877cbdf4a, type: 2}

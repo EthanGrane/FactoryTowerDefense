@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc88a0206268c7641ba2153cfa1c4e4d, type: 3}
-  m_Name: Creative Conveyor
+  m_Name: Conveyor
   m_EditorClassIdentifier: 
-  blockName: Creative Conveyor
+  blockName: Conveyor
   size: 1
-  solid: 0
   blockTile: {fileID: 11400000, guid: 50607a4dd246c44418a025ea5a4c33da, type: 2}
   sprite: {fileID: 609926325, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
+  solid: 0
+  CanBeRemovedByPlayer: 1
   ticksToMoveConveyorItem: 20
