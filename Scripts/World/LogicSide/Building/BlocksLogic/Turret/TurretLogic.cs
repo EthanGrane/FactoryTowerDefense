@@ -56,7 +56,8 @@ public class TurretLogic : BuildingLogic
                 turretBlock.projectileSpeed,
                 turretBlock.projectileCollisionRadius,
                 turretBlock.projectileLifetime,
-                turretBlock.projectileDamage
+                turretBlock.projectileDamage,
+                turretBlock.projectilePenetration
             ));
     }
 

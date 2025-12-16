@@ -12,4 +12,5 @@ public class TurretBlock : Block<TurretLogic>
     public float projectileLifetime = 1;
     public float projectileCollisionRadius = .25f;
     public int projectileDamage = 1;
+    public int projectilePenetration = 1;
 }

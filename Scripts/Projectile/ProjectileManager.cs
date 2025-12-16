@@ -54,8 +54,12 @@ public class ProjectileManager : MonoBehaviour
                 Vector2 direction = projectiles[j].position - (Vector2)enemy.transform.position;
                 if (Vector2.Distance(enemy.transform.position + (Vector3)(direction * enemy.collisionRadius), projectiles[j].position) <= projectiles[j].collisionRadius)
                 {
-                    EnemyManager.Instance.ProcessDamage(enemy, projectiles[j].damage);
-                    projectiles[j].isDead = true;
+                    EnemyManager.Instance.ProcessDamage(enemy, projectiles[j]);
+                    
+                    projectiles[j].penetration--;
+                    
+                    if(projectiles[j].penetration <= 0)
+                        projectiles[j].isDead = true;
                 }            
             }
         }

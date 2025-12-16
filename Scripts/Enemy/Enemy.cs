@@ -38,12 +38,6 @@ public class Enemy : MonoBehaviour
         if (Vector2.Distance(transform.position, targetPos) < 0.1f)
             pathIndex++;
     }
-
-    public void TakeDamage(int dmg)
-    {
-        EnemyManager.Instance.ProcessDamage(this, dmg);
-    }
-
     public void DieExtern()
     {
         if (!isAlive) return;
