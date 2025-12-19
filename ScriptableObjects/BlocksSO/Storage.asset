@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ab15585d485ce49b2fb50e737b0b20, type: 3}
   m_Name: Storage
   m_EditorClassIdentifier: 
-  blockName: Storage
   size: 1
+  blockName: Storage
   blockTile: {fileID: 11400000, guid: 4a51917feed9e9a4f8ea2cb07628c4c1, type: 2}
   sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
+  buildingCost:
+  - buildingCost: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+    amount: 15
   solid: 1
   CanBeRemovedByPlayer: 1
   slotCount: 999

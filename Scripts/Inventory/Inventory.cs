@@ -77,4 +77,17 @@ public class Inventory
         }
         return null;
     }
+
+    public bool Contains(Item item, int amount)
+    {
+        foreach(var slot in slots)
+        {
+            if(slot.item == item && slot.amount > 0)
+            {
+                if(slot.item == item && slot.amount > amount)
+                    return true;
+            }
+        }    
+        return false;
+    }
 }

@@ -10,4 +10,7 @@ public class Item : ScriptableObject
     public bool isAmmo;
     public ProjectileSO projectile;
     
+    [Header("Base")]
+    public bool canBeInsertedOnBase = true;
+    
 }

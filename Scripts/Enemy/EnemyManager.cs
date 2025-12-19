@@ -99,11 +99,16 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < damage; i++)
         {
+            if(enemy.currentTierSo.canDropItem && enemy.currentTierSo.dropItem != null)
+                GameManager.Instance.AddItemToInventory(enemy.currentTierSo.dropItem,enemy.currentTierSo.dropAmount);
+            
             EnemyTierSO lower = GetLowerTier(enemy.currentTierSo);
+            
             if (lower != null)
                 ApplyTier(enemy, lower);
             else
             {
+                // Enemy Death
                 UnregisterEnemy(enemy);
                 enemy.DieExtern();
                 return;

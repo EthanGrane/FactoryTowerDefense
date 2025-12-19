@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class BaseLogic : BuildingLogic, IItemAcceptor
 {
+
     public bool CanAccept(Item item)
     {
+        if(item.canBeInsertedOnBase == false) return false;
+        
         return true;
     }
 
     public bool Insert(Item item)
     {
-        Debug.Log($"Item: {item.name} inserted");
-        return true;
+        if (!CanAccept(item))
+            return false;
+
+        return GameManager.Instance.AddItemToInventory(item, 1);
     }
+
 }

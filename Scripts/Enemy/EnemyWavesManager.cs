@@ -11,7 +11,7 @@ public class EnemyWavesManager : MonoBehaviour
     public int currentWave = 0;
 
     const int SecondsBetweenWaves = 30;
-    const float SpawnDelay = 0.15f;
+    const float SpawnDelay = 0.2f;
 
     EnemyBasePoint enemyBasePosition;
     Coroutine enemyWavesCoroutine;
@@ -47,6 +47,8 @@ public class EnemyWavesManager : MonoBehaviour
         if (enemyWavesCoroutine != null)
             StopCoroutine(enemyWavesCoroutine);
 
+        GameManager.Instance.AddItemToInventory(waves[currentWave].rewardItem, waves[currentWave].rewardAmount);
+        
         enemyWavesCoroutine = StartCoroutine(StartWaveRound());
     }
 
@@ -55,7 +57,7 @@ public class EnemyWavesManager : MonoBehaviour
         isSpawningWave = true;
 
         time = 0;
-        while (time < SecondsBetweenWaves)
+        while (time < SecondsBetweenWaves && currentWave != 0)
         {
             time += Time.deltaTime;
             yield return null;

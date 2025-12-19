@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "NewBlock", menuName = "FACTORY/Block")]
 public class Block : ScriptableObject
 {
-    public string blockName;
+    [Header("Settings")]
     public int size = 1;
-    [Space]
+    
+    [Header("Visuals")]
+    public string blockName;
     public TileBase blockTile;
     public Sprite sprite;
-    [Space]
+    
+    [Header("Health")]
     public float blockHealth = 100;
-    [Space]
+
+    [Header("Building")] 
+    public BuildingCost[] buildingCost;
+    
+    [Header("Flags")]
     public bool solid;
     public bool CanBeRemovedByPlayer = true;
     
@@ -24,4 +32,11 @@ public abstract class Block<T> : Block where T : new()
     {
         logicType = typeof(T);
     }
+}
+
+[System.Serializable]
+public struct BuildingCost
+{
+    [FormerlySerializedAs("buildingCost")] public Item requieredItem;
+    public int amount;
 }

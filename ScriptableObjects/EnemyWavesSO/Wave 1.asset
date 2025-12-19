@@ -15,4 +15,6 @@ MonoBehaviour:
   waves:
   - enemy: {fileID: 11400000, guid: 70f98266b7133304db32d4aad5f1d3fd, type: 2}
     quantity: 30
-    spawnDelay: 0
+  hasReward: 1
+  rewardItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  rewardAmount: 50

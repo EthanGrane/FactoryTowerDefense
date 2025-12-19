@@ -16,4 +16,7 @@ MonoBehaviour:
   sprite: {fileID: -2413806693520163455, guid: 86af2dcd30e119d4f889dc529a5eec6f, type: 3}
   color: {r: 0.105882354, g: 0.84313726, b: 0, a: 0}
   moveSpeed: 8
+  canDropItem: 1
+  dropItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  dropAmount: 1
   tierIndex: 3

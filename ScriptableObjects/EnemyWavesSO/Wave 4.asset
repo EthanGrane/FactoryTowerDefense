@@ -19,3 +19,6 @@ MonoBehaviour:
     quantity: 100
   - enemy: {fileID: 11400000, guid: 92bc35f15e4ee9d4e866c9deb8dde6ba, type: 2}
     quantity: 25
+  hasReward: 1
+  rewardItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  rewardAmount: 50

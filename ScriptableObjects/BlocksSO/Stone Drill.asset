@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c242be34ddfd4408fbce8c56f8f378, type: 3}
   m_Name: Stone Drill
   m_EditorClassIdentifier: 
-  blockName: Stone Drill
   size: 2
+  blockName: Stone Drill
   blockTile: {fileID: 11400000, guid: 24077ca4232ab154c8bc0bcd0485fde8, type: 2}
   sprite: {fileID: -1416648625, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
+  buildingCost:
+  - buildingCost: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+    amount: 30
   solid: 1
   CanBeRemovedByPlayer: 1
   terrainSO: {fileID: 11400000, guid: 77871cddcf0608241abb53d135998c9a, type: 2}

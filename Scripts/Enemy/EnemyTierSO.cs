@@ -12,6 +12,11 @@ public class EnemyTierSO : ScriptableObject
 
     [Header("Stats")]
     public float moveSpeed = 2f;
+
+    [Header("Drops")] 
+    public bool canDropItem = true;
+    public Item dropItem;
+    public int dropAmount;
     
     [HideInInspector] public int tierIndex;
 }

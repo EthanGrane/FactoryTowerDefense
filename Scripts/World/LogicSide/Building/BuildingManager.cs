@@ -51,16 +51,7 @@ public class BuildingManager : MonoBehaviour
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(mouseWorld );
         
-        if (selectedBlock == null)
-            ghostObject.SetActive(false);
-        else
-        {
-            ghostObject.SetActive(true);
-            Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, (selectedBlock.size - 1) * 0.5f, 0f);
-            ghostObject.transform.position = new Vector3(tilePos.x + .5f + centerOffset.x, tilePos.y + .5f + centerOffset.y, 0);
-            ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
-            ghostObject.GetComponent<SpriteRenderer>().sprite = selectedBlock.sprite;   
-        }
+        HandleGhostBuilding(tilePos);
         
         // Build
         if (Input.GetMouseButton(0))
@@ -86,6 +77,26 @@ public class BuildingManager : MonoBehaviour
 
     }
 
+    void HandleGhostBuilding(Vector3Int tilePos)
+    {
+        // Ghost
+        if (selectedBlock == null)
+            ghostObject.SetActive(false);
+        else
+        {
+            ghostObject.SetActive(true);
+            Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, (selectedBlock.size - 1) * 0.5f, 0f);
+            ghostObject.transform.position = new Vector3(tilePos.x + .5f + centerOffset.x, tilePos.y + .5f + centerOffset.y, 0);
+            ghostObject.transform.rotation = Quaternion.Euler(new Vector3(0,0,-90 * rotation));
+            SpriteRenderer ghostSpriteRenderer = ghostObject.GetComponent<SpriteRenderer>();
+            ghostSpriteRenderer.sprite = selectedBlock.sprite;   
+            if(CanBuild(tilePos.x,tilePos.y,selectedBlock))
+                ghostSpriteRenderer.color = new Color(1f, 1f, 1f, .9f);
+            else
+                ghostSpriteRenderer.color = new Color(1f, 0.1f, 0.1f, .9f);
+        }
+    }
+    
     public void SelectBlock(Block block)
     {
         if (blocks.Contains(block))
@@ -103,6 +114,18 @@ public class BuildingManager : MonoBehaviour
             world = World.Instance;
         
         Tile[,] tiles = world.GetTiles();
+
+        if (block.buildingCost != null && block.buildingCost.Length != 0)
+        {
+            Inventory playerInv = GameManager.Instance.GetPlayerInventory();
+            for (int i = 0; i < block.buildingCost.Length; i++)
+            {
+                if(playerInv.Contains(block.buildingCost[i].requieredItem, block.buildingCost[i].amount))
+                    continue;
+                
+                return false;
+            }
+        }
 
         for (int x = 0; x < block.size; x++)
         {
@@ -207,6 +230,5 @@ public class BuildingManager : MonoBehaviour
         
         return true;
     }
-
 
 }
