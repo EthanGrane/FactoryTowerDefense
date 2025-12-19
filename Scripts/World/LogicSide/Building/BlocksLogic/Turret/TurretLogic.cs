@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class TurretLogic : BuildingLogic, IItemAcceptor
 {
     int projectileRateCount = 0;
-    int maxAmmo = 20;
 
     readonly Queue<Item> ammoQueue = new();
 
@@ -69,7 +68,7 @@ public class TurretLogic : BuildingLogic, IItemAcceptor
     {
         TurretBlock turretBlock = building.block as TurretBlock;
 
-        if (ammoQueue.Count >= maxAmmo)
+        if (ammoQueue.Count >= turretBlock.maxAmmo)
             return false;
 
         if (!item.isAmmo || item.projectile == null)

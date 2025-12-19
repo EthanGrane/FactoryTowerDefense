@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - enemy: {fileID: 11400000, guid: a39678d308ef14243ba051af7594727d, type: 2}
-    quantity: 150
+    quantity: 125
   hasReward: 1
   rewardItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
   rewardAmount: 50

@@ -79,6 +79,38 @@ public class World : MonoBehaviour
     public Building GetBuilding(int x, int y) => GetTile(x, y).building;
     public Building GetBuilding(Vector2Int pos) => GetTile(pos).building;
     
+    public List<Tile> GetNeighbors(Vector2Int pos)
+    {
+        List<Tile> neighbors = new List<Tile>();
+
+        // Direcciones cardinales (arriba, derecha, abajo, izquierda)
+        Vector2Int[] dirs = new Vector2Int[]
+        {
+            Vector2Int.up,
+            Vector2Int.right,
+            Vector2Int.down,
+            Vector2Int.left
+        };
+
+        foreach (var dir in dirs)
+        {
+            int nx = pos.x + dir.x;
+            int ny = pos.y + dir.y;
+
+            // Verificar límites del mundo
+            if (nx < 0 || nx >= WorldSize || ny < 0 || ny >= WorldSize)
+                continue;
+
+            Tile tile = GetTile(nx, ny);
+            if (tile != null && tile.building != null)
+            {
+                neighbors.Add(tile);
+            }
+        }
+
+        return neighbors;
+    }
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;

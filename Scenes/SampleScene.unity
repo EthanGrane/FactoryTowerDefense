@@ -54748,6 +54748,14 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[6723].second.m_TileSpriteIndex
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8536440791919073977, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: waves.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536440791919073977, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
+      propertyPath: 'waves.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a71bb58f850bec548a00d09a12ac12bf, type: 2}
     - target: {fileID: 9190538370794383919, guid: c47b9f1145ddd4e4ca8ec4edef74b62d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

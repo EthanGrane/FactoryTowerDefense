@@ -42,6 +42,8 @@ public class LogicManager : MonoBehaviour
                 if (logic.update)
                     logic.Tick();
             
+            PushItemsToNeighbors();
+            
             OnTick?.Invoke();
         }
     }
@@ -52,6 +54,47 @@ public class LogicManager : MonoBehaviour
         foreach(var logic in logics)
             if (logic is T t) filtered.Add(t);
         return filtered.ToArray();
+    }
+    
+    private void PushItemsToNeighbors()
+    {
+        foreach (var logic in logics)
+        {
+            if (logic is IItemProvider provider)
+            {
+                if(logic is ConveyorLogic) return;
+                
+                var neighbors = World.Instance.GetNeighbors(logic.building.position);
+            
+                Item itemToPush = null;
+                IItemAcceptor targetAcceptor = null;
+
+                // Buscar primero un acceptor que pueda aceptar
+                foreach (var neighbor in neighbors)
+                {
+                    if (neighbor.building.logic is IItemAcceptor acceptor)
+                    {
+                        // Extraemos temporalmente para preguntar si puede insertarse
+                        Item peekItem = provider.ExtractFirst();
+                        if (peekItem == null) break; // no hay items
+
+                        if (acceptor.CanAccept(peekItem))
+                        {
+                            itemToPush = peekItem;
+                            targetAcceptor = acceptor;
+                            break;
+                        }
+                    }
+                }
+
+                // Si encontramos destino, extraemos y hacemos insert
+                if (targetAcceptor != null && itemToPush != null)
+                {
+                    provider.Extract(itemToPush); // ahora sí lo sacamos
+                    targetAcceptor.Insert(itemToPush);
+                }
+            }
+        }
     }
 
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   damage: 1
-  penetration: 1
-  speed: 40
+  penetration: 2
+  speed: 60
   lifetime: 1
-  collisionRadius: 0.2
+  collisionRadius: 0.25
   projectileColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}

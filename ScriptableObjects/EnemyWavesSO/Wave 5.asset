@@ -18,7 +18,7 @@ MonoBehaviour:
   - enemy: {fileID: 11400000, guid: 3e7d45764b1644e46a5b529acab3f3e1, type: 2}
     quantity: 25
   - enemy: {fileID: 11400000, guid: ded539d21000c3f47bc3b3a1c5facc37, type: 2}
-    quantity: 100
+    quantity: 75
   - enemy: {fileID: 11400000, guid: a39678d308ef14243ba051af7594727d, type: 2}
     quantity: 25
   hasReward: 1

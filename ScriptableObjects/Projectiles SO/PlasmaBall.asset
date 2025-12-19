@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlasmaBall
   m_EditorClassIdentifier: 
   damage: 1
-  penetration: 2
-  speed: 50
+  penetration: 3
+  speed: 40
   lifetime: 0.33
-  collisionRadius: 0.25
+  collisionRadius: 0.33
   projectileColor: {r: 0.015686274, g: 0.618726, b: 1, a: 1}

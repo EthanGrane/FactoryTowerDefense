@@ -10,7 +10,7 @@ public class EnemyWavesManager : MonoBehaviour
 
     public int currentWave = 0;
 
-    const int SecondsBetweenWaves = 30;
+    const int SecondsBetweenWaves = 60;
     const float SpawnDelay = 0.2f;
 
     EnemyBasePoint enemyBasePosition;
