@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        Application.targetFrameRate = 120;
+    }
+
     public bool AddItemToInventory(Item item, int amount)
     {
         bool m = playerInventory.Add(item, amount);
