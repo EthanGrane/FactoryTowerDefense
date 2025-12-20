@@ -18,10 +18,10 @@ MonoBehaviour:
   sprite: {fileID: -1416648625, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
   blockHealth: 100
   buildingCost:
-  - buildingCost: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  - requieredItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
     amount: 30
   solid: 1
   CanBeRemovedByPlayer: 1
   terrainSO: {fileID: 11400000, guid: 77871cddcf0608241abb53d135998c9a, type: 2}
-  efficiencyPerTile: 0.2
+  efficiencyPerTile: 0.1
   outputItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}

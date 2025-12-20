@@ -26,7 +26,6 @@ public class World : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
         #endregion
 
         // Terrain Dictionary

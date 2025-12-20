@@ -55,7 +55,7 @@ public class TurretLogic : BuildingLogic, IItemAcceptor
 
         projectileRateCount = turretBlock.projectileRateOnTicks;
 
-        ProjectileManager.instance.SpawnProjectile(
+        ProjectileManager.Instance.SpawnProjectile(
             pos,
             direction,
             projectile

@@ -32,7 +32,13 @@ public class EnemyWavesManager : MonoBehaviour
         
         enemyBasePosition = FindFirstObjectByType<EnemyBasePoint>();
     }
-
+    
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+    
     private void Start()
     {
         EnemyManager.Instance.onAllEnemiesDead += OnAllEnemiesDead;

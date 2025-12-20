@@ -23,7 +23,7 @@ public class PlayerProjectile : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = mousePos - (Vector2)transform.position;
             direction = direction.normalized;
-            ProjectileManager.instance.SpawnProjectile(transform.position, direction, projectile);
+            ProjectileManager.Instance.SpawnProjectile(transform.position, direction, projectile);
         }
     }
 }

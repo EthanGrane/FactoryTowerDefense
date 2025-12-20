@@ -144,6 +144,12 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void ProcessDamageToBase(Enemy enemy)
+    {
+        int damage = enemy.currentTierSo.tierIndex + 1;
+        GameManager.Instance.TakeDamage(damage);
+    }
+
     public void ProcessDamage(Enemy enemy, Projectile projectile) => ProcessDamage(enemy, projectile.damage);
     
     public int GetEnemiesAliveCount() => enemies.Count;

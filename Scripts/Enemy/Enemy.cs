@@ -30,7 +30,10 @@ public class Enemy : MonoBehaviour
             return;
 
         if (pathIndex >= currentPath.Count)
+        {
+            OnPathFinished();
             return;
+        }
 
         Vector2 targetPos = currentPath[pathIndex];
         Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
@@ -50,8 +53,17 @@ public class Enemy : MonoBehaviour
         isAlive = false;
         Destroy(gameObject);
     }
+    
+    void OnPathFinished()
+    {
+        if (!isAlive) return;
 
-    public void TakeDamage(int damage) => EnemyManager.Instance.ProcessDamage(this, damage);
+        EnemyManager.Instance.ProcessDamageToBase(this);
+
+        EnemyManager.Instance.UnregisterEnemy(this);
+        DieExtern();
+    }
+
     
     public Vector2 GetPosition() => transform.position;
     public Vector2 GetVelocity() => lastDir * moveSpeed;

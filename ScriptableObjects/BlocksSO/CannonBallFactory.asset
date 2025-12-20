@@ -18,7 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 6a793e2f60c90d64f95d4d4a8ed8162e, type: 3}
   blockHealth: 325
   buildingCost:
-  - buildingCost: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  - requieredItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
     amount: 30
   solid: 1
   CanBeRemovedByPlayer: 1
@@ -26,4 +26,4 @@ MonoBehaviour:
   inputAmount: 1
   output: {fileID: 11400000, guid: 9f1448e77c0128948ac6ffc528207702, type: 2}
   outputAmount: 2
-  timeToCraftOnTicks: 60
+  timeToCraftOnTicks: 40

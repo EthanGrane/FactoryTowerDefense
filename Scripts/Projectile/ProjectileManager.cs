@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
-    public static ProjectileManager instance;
+    public static ProjectileManager Instance;
     public List<Projectile> projectiles = new();
 
     ProjectileVisual projectileVisual;
     
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         
-        projectileVisual = GetComponent<ProjectileVisual>();
+        if(projectileVisual == null)
+            projectileVisual = GetComponent<ProjectileVisual>();
     }
     
     void Update()

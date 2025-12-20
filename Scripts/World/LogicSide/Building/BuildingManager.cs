@@ -40,13 +40,17 @@ public class BuildingManager : MonoBehaviour
         }
         Instance = this;
     }
+    
 
     private void Start()
     {
         if(worldRenderer == null)
             worldRenderer = WorldRenderer.Instance;
         
-        ghostObject = Instantiate(ghostPrefab);
+        if (ghostObject != null)
+            Destroy(ghostObject);
+        
+        ghostObject = Instantiate(ghostPrefab, transform);
     }
 
     private void Update()

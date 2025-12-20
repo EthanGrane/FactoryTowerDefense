@@ -91,4 +91,9 @@ public class Inventory
         }    
         return false;
     }
+
+    public void Clear()
+    {
+        slots = null;
+    }
 }

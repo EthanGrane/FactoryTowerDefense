@@ -46,6 +46,12 @@ public class PathfindingAStar : MonoBehaviour
         Instance = this;
         EnsureEndpoints();
     }
+    
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
 
     // ========================= PUBLIC API =========================
     

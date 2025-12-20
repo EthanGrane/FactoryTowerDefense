@@ -20,6 +20,7 @@ public class EnemyWaveSquad
     public int quantity = 1;
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(EnemyWaveSO))]
 [CanEditMultipleObjects]
 public class EnemyWaveSOEditor : Editor
@@ -90,3 +91,4 @@ public class EnemyWaveSOEditor : Editor
         EditorGUI.indentLevel--;
     }
 }
+#endif
