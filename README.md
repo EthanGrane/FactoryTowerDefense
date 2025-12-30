@@ -1,4 +1,5 @@
 # Estructura de Scripts – Deterministic Factory Game
+<img width="512" alt="image" src="https://github.com/user-attachments/assets/a7fc1875-9813-4056-9bba-0e59bf956bd5" />
 
 ## World / Tilemap System
 - **World** → Singleton, contiene todos los Tiles
