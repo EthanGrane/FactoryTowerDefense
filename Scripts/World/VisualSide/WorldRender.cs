@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(World))]
 public class WorldRenderer : MonoBehaviour
@@ -14,6 +16,8 @@ public class WorldRenderer : MonoBehaviour
     
     public Tilemap terrainTilemap;
     public Tilemap buildingTilemap;
+    
+    public Dictionary<Vector3Int, GameObject> buildingObjects = new Dictionary<Vector3Int, GameObject>();
 
     void Awake()
     {
@@ -53,19 +57,28 @@ public class WorldRenderer : MonoBehaviour
 
         // Terrain
         // terrainTilemap.SetTile(pos, tile.terrainSO.sprite);
-        float height = -0.5f;
+        float height = 0f;
         if (tile.terrainSO.solid) 
-            height = .5f;
-        GameObject threeDimTile = Instantiate(TestTile, new Vector3(pos.x,height,pos.y), Quaternion.identity);
-        if (tile.terrainSO.solid) 
-            threeDimTile.AddComponent<BoxCollider>();
+            height = 1f;
+        GameObject threeDimTile = Instantiate(TestTile, new Vector3(pos.x + .5f,height,pos.y+ .5f), Quaternion.identity);
         
         if(tile.terrainSO.name == "Stone")
-            Instantiate(ornamentTile, new Vector3(pos.x,height,pos.y), Quaternion.identity);
+        {
+            GameObject ornament = Instantiate(ornamentTile, new Vector3(pos.x+ .5f, height + Random.Range(-0.025f,0f), pos.y+ .5f), Quaternion.Euler(0,90 * Random.Range((int)1,4),0));
+        }        
         
         // Building
         if (tile.building == null)
         {
+            if (buildingObjects.TryGetValue(pos, out var obj))
+            {
+                Destroy(obj);
+                buildingObjects.Remove(pos);
+            }
+
+
+            return;
+            // Remove building visual
             buildingTilemap.SetTile(pos, null);
             buildingTilemap.SetTransformMatrix(pos, Matrix4x4.identity);
             return;
@@ -75,13 +88,32 @@ public class WorldRenderer : MonoBehaviour
 
         if (b.position.x != x || b.position.y != y)
         {
+            if (buildingObjects.TryGetValue(pos, out var obj))
+            {
+                Destroy(obj);
+                buildingObjects.Remove(pos);
+            }
+
+            return;
+            // Remove building visual
             buildingTilemap.SetTile(pos, null);
             buildingTilemap.SetTransformMatrix(pos, Matrix4x4.identity);
             return;
         }
 
-        buildingTilemap.SetTile(pos, b.block.blockTile);
+        
+        // buildingTilemap.SetTile(pos, b.block.blockTile);
+        if (buildingObjects.TryGetValue(pos, out var oldObj))
+        {
+            Destroy(oldObj);
+            buildingObjects.Remove(pos);
+        }
+        GameObject buildingObject = Instantiate(TestTile, new Vector3(pos.x + 0.5f, height, pos.y + 0.5f), Quaternion.identity);
+        buildingObject.GetComponent<MeshFilter>().mesh = tile.building.block.mesh;
+        buildingObjects[pos] = buildingObject;
 
+        
+        // Rotation on tilemap
         Vector3 centerOffset = new Vector3(
             (b.block.size - 1) * 0.5f,
             (b.block.size - 1) * 0.5f,

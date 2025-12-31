@@ -61,17 +61,21 @@ public class BuildingManager : MonoBehaviour
         Vector3 mouseWorldXZ = GetMouseWorldPositionXZ();
 
         // Tilemap
-        Vector3Int tilePos = worldRenderer.terrainTilemap.WorldToCell(new Vector3(mouseWorldXZ.x, 0, mouseWorldXZ.z));
+        int gridX = Mathf.FloorToInt(mouseWorldXZ.x);
+        int gridZ = Mathf.FloorToInt(mouseWorldXZ.z);
 
+        Vector3Int tilePos = new Vector3Int(gridX, 0, gridZ);
+
+        
         HandleGhostBuilding(tilePos);
 
         if (Input.GetMouseButton(0))
-            Build(tilePos.x, tilePos.y, selectedBlock, rotation);
+            Build(tilePos.x, tilePos.z, selectedBlock, rotation);
 
         if (Input.GetMouseButton(1))
         {
             if(selectedBlock == null)
-                RemoveBuilding(tilePos.x, tilePos.y);
+                RemoveBuilding(tilePos.x, tilePos.z);
             else
                 SetSelectedBlock(null);
         }
@@ -93,19 +97,34 @@ public class BuildingManager : MonoBehaviour
         }
 
         ghostObject.SetActive(true);
-        Vector3 centerOffset = new Vector3((selectedBlock.size - 1) * 0.5f, 0, (selectedBlock.size - 1) * 0.5f);
-        ghostObject.transform.position = new Vector3(tilePos.x + 0.5f + centerOffset.x, 0, tilePos.y + 0.5f + centerOffset.z);
-        ghostObject.transform.rotation = Quaternion.Euler(90, 90 * rotation, 0);
 
-        SpriteRenderer ghostSpriteRenderer = ghostObject.GetComponent<SpriteRenderer>();
-        ghostSpriteRenderer.sprite = selectedBlock.sprite;
+        float size = selectedBlock.size;
+        Vector3 centerOffset = new Vector3(
+            (size - 1) * 0.5f,
+            0f,
+            (size - 1) * 0.5f
+        );
 
-        if(CanBuild(tilePos.x, tilePos.y, selectedBlock))
-            ghostSpriteRenderer.color = new Color(1f,1f,1f,0.9f);
-        else
-            ghostSpriteRenderer.color = new Color(1f,0.1f,0.1f,0.9f);
+        ghostObject.transform.position = new Vector3(
+            tilePos.x + 0.5f + centerOffset.x,
+            0f,
+            tilePos.z + 0.5f + centerOffset.z
+        );
+
+        // Rotación correcta para XZ
+        ghostObject.transform.rotation = Quaternion.Euler(
+            90f,
+            rotation * 90f,
+            0f
+        );
+
+        SpriteRenderer sr = ghostObject.GetComponent<SpriteRenderer>();
+        sr.sprite = selectedBlock.sprite;
+
+        sr.color = CanBuild(tilePos.x, tilePos.z, selectedBlock)
+            ? new Color(1f, 1f, 1f, 0.9f)
+            : new Color(1f, 0.1f, 0.1f, 0.9f);
     }
-
     
     public void SelectBlock(Block block)
     {
@@ -214,8 +233,10 @@ public class BuildingManager : MonoBehaviour
 
                 tile.building = building;
 
+                /*
                 if (block.solid)
                     buildingCollider.SetTile(new Vector3Int(tx, ty, 0), colliderTile);
+                    */
             }
         }
 
@@ -256,8 +277,10 @@ public class BuildingManager : MonoBehaviour
                     t.building = null;
                     worldRenderer.SetTileVisual(tx, ty, t);
                 }
-
+                
+                /*
                 buildingCollider.SetTile(new Vector3Int(tx, ty, 0), null);
+                */
             }
         }
         

@@ -27,6 +27,7 @@ public class ConveyorRender : MonoBehaviour
 
     public GameObject itemPrefab;
     public int poolSize = 50;
+    public Vector3 itemOffset = new Vector3(0, 1f, 0);
 
     // Pool para no instanciar constantemente
     private Queue<GameObject> pool = new Queue<GameObject>();
@@ -73,6 +74,8 @@ public class ConveyorRender : MonoBehaviour
                 0,
                 conveyor.building.position.y + 0.5f
             );
+            
+            basePos += itemOffset;
 
             // Punto inicial donde empieza el movimiento del item (ajustado ligeramente hacia atrás)
             Vector3 startPos = basePos - new Vector3(fwd.x, fwd.y, 0) * 0.6f;

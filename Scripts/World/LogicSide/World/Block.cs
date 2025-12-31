@@ -12,6 +12,8 @@ public class Block : ScriptableObject
     public string blockName;
     public TileBase blockTile;
     public Sprite sprite;
+    [Space]
+    public Mesh mesh;
     
     [Header("Health")]
     public float blockHealth = 100;

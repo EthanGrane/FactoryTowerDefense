@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce756e87dbc54210a346736848a4d32e, type: 3}
   m_Name: Player Base
   m_EditorClassIdentifier: 
-  blockName: Player Base
   size: 3
+  blockName: Player Base
   blockTile: {fileID: 11400000, guid: 7034b7146a878504489e207c2d39f3bf, type: 2}
   sprite: {fileID: 1767636902, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  mesh: {fileID: 3613567641014311022, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 100
+  buildingCost: []
   solid: 0
   CanBeRemovedByPlayer: 0
