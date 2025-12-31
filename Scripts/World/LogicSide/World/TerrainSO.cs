@@ -9,4 +9,8 @@ public class TerrainSO : ScriptableObject
     public TileBase sprite;
     [Header("Pathfinding")]
     public int movementCost = 1;
+
+    [Header("3D Visual")] 
+    public GameObject terrainTile;
+    public GameObject terrainOrnament;
 }

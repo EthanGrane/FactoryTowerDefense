@@ -9,6 +9,9 @@ public class WorldRenderer : MonoBehaviour
 
     private World world;
 
+    public GameObject TestTile;
+    public GameObject ornamentTile;
+    
     public Tilemap terrainTilemap;
     public Tilemap buildingTilemap;
 
@@ -27,6 +30,8 @@ public class WorldRenderer : MonoBehaviour
     {
         world = World.Instance;
         RenderAll();
+
+        terrainTilemap.enabled = false;
     }
     
     private void RenderAll()
@@ -47,8 +52,17 @@ public class WorldRenderer : MonoBehaviour
         Vector3Int pos = new Vector3Int(x, y, 0);
 
         // Terrain
-        terrainTilemap.SetTile(pos, tile.terrainSO.sprite);
-
+        // terrainTilemap.SetTile(pos, tile.terrainSO.sprite);
+        float height = -0.5f;
+        if (tile.terrainSO.solid) 
+            height = .5f;
+        GameObject threeDimTile = Instantiate(TestTile, new Vector3(pos.x,height,pos.y), Quaternion.identity);
+        if (tile.terrainSO.solid) 
+            threeDimTile.AddComponent<BoxCollider>();
+        
+        if(tile.terrainSO.name == "Stone")
+            Instantiate(ornamentTile, new Vector3(pos.x,height,pos.y), Quaternion.identity);
+        
         // Building
         if (tile.building == null)
         {
