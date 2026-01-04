@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dbfbdd4f7b41379f08108f71ea3226, type: 3}
   m_Name: PlasmaBall
   m_EditorClassIdentifier: 
-  damage: 1
-  penetration: 3
+  damage: 2
+  penetration: 5
   speed: 50
   lifetime: 1
   collisionRadius: 0.33

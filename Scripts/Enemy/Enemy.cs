@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     
     public Vector3 GetPosition() => transform.position;
     public Vector3 GetVelocity() => lastDir * moveSpeed;
-
+    
     // ================= PATHFINDING =================
     public void RecalculatePath()
     {
