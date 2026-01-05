@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConveyorLogic : BuildingLogic, IItemAcceptor
+public class ConveyorLogic : LogisticBuilding
 {
     public int conveyorTickSpeed;
     public  Item[] itemBuffer;
@@ -226,14 +226,14 @@ public class ConveyorLogic : BuildingLogic, IItemAcceptor
         }
     }
     
-    public bool CanAccept(Item item)
+    public override bool CanAccept(Item item)
     {
         // Solo puede aceptar si hay espacio en el primer slot
         return itemBuffer[0] == null;
 
     }
 
-    public bool Insert(Item item)
+    public override bool Insert(Item item)
     {
         if (CanAccept(item))
         {

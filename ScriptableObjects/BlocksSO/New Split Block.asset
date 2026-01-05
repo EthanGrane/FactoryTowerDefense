@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0ee2ee77fa8f9469c6e5ac102f749c, type: 3}
+  m_Name: New Split Block
+  m_EditorClassIdentifier: 
+  size: 1
+  blockName: Split
+  blockTile: {fileID: 11400000, guid: 50607a4dd246c44418a025ea5a4c33da, type: 2}
+  sprite: {fileID: 609926325, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  blockHealth: 100
+  buildingCost: []
+  solid: 0
+  CanBeRemovedByPlayer: 1
+  ticksToMoveConveyorItem: 60
