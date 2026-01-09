@@ -18,10 +18,15 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private List<Vector2Int> path;
     private bool pathDirty = true;
-    
+
+    public AudioClip SlimePOpClip;
+    AudioSource audioSource;
+    private float lastSoundTime;
+
     private void Awake()
     {
         Instance = this;
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     private void Start()
@@ -86,11 +91,11 @@ public class EnemyManager : MonoBehaviour
         enemy.currentTierSo = tierSo;
         enemy.moveSpeed = tierSo.moveSpeed;
 
-        SpriteRenderer sr = enemy.GetComponent<SpriteRenderer>();
-        sr.sprite = tierSo.sprite;
+        MeshRenderer sr = enemy.GetComponentInChildren<MeshRenderer>();
         Color c = tierSo.color;
         c.a = 1;
-        sr.color = c;
+        sr.material.color = c;
+        sr.material.SetFloat("_Random", UnityEngine.Random.Range(0f, 100f));
     }
     
     public Enemy[] GetEnemiesOnRadius(Vector3 center, float radius)
@@ -159,8 +164,22 @@ public class EnemyManager : MonoBehaviour
             onAllEnemiesDead?.Invoke();
     }
 
+    void PlayAudioShoot(AudioClip clip)
+    {
+        const float timeBetweenSounds = 0.05f;
+
+        if (Time.time - lastSoundTime < timeBetweenSounds)
+            return;
+
+        lastSoundTime = Time.time;
+        audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(clip);
+    }
+
     public void ProcessDamage(Enemy enemy, int damage)
     {
+        PlayAudioShoot(SlimePOpClip);
+        
         for (int i = 0; i < damage; i++)
         {
             if(enemy.currentTierSo.canDropItem && enemy.currentTierSo.dropItem != null)
@@ -184,6 +203,7 @@ public class EnemyManager : MonoBehaviour
     {
         int damage = enemy.currentTierSo.tierIndex + 1;
         GameManager.Instance.TakeDamage(damage);
+        
     }
 
     public void ProcessDamage(Enemy enemy, Projectile projectile) => ProcessDamage(enemy, projectile.damage);

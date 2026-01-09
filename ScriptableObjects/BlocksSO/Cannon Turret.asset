@@ -16,6 +16,7 @@ MonoBehaviour:
   blockName: Cannon Turret
   blockTile: {fileID: 11400000, guid: f7bdd16dff9c57e47bfc847d727b67a2, type: 2}
   sprite: {fileID: 21300000, guid: 234c7e749e9162547b6c99b6c7dce0e5, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 100
   buildingCost:
   - requieredItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}

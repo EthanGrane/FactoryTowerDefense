@@ -16,6 +16,7 @@ MonoBehaviour:
   blockName: Giant Cannon Turret
   blockTile: {fileID: 11400000, guid: 7d823e7488449f04ca95189cfbbde46a, type: 2}
   sprite: {fileID: 21300000, guid: 004e9899990b9c045a368a37e6518840, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 100
   buildingCost: []
   solid: 1

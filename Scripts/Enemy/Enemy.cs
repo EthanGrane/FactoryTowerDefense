@@ -36,12 +36,14 @@ public class Enemy : MonoBehaviour
         }
 
         Vector3 targetPos = currentPath[pathIndex];
-        targetPos = new Vector3(targetPos.x, 1, targetPos.y);
+        targetPos = new Vector3(targetPos.x, 0, targetPos.y);
         Vector3 dir = (targetPos - transform.position).normalized;
         dir = Vector3.Lerp(lastDir, dir, 0.2f);
         lastDir = dir;
         
         transform.Translate(dir * (moveSpeed * Time.deltaTime), Space.World);
+        
+        transform.forward = dir;
 
         if (Vector3.Distance(transform.position, targetPos) < 0.1f)
             pathIndex++;

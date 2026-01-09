@@ -16,7 +16,7 @@ MonoBehaviour:
   blockName: Conveyor
   blockTile: {fileID: 11400000, guid: 50607a4dd246c44418a025ea5a4c33da, type: 2}
   sprite: {fileID: 609926325, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
-  mesh: {fileID: 3613567641014311022, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 100
   buildingCost:
   - requieredItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}

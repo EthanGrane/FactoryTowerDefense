@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SplitLogic : LogisticBuilding
@@ -10,7 +11,7 @@ public class SplitLogic : LogisticBuilding
 
     // 🔁 Round-robin: recuerda la próxima salida
     private int nextOutputIndex = 0;
-
+    
     public override void Initialize(Block block)
     {
         var split = (SplitBlock)block;
@@ -88,13 +89,16 @@ public class SplitLogic : LogisticBuilding
             Vector2Int dir = GetOutputDir(outIndex);
             Vector2Int pos = building.position + dir;
 
-            Tile tile = World.Instance.GetTile(pos.x, pos.y);
-            if (tile == null || tile.building == null) continue;
+            Tile outputTile = World.Instance.GetTile(pos.x, pos.y);
+            if (outputTile == null || outputTile.building == null) continue;
 
-            var logic = tile.building.logic;
+            var logic = outputTile.building.logic;
 
             if (logic is IItemAcceptor acceptor)
             {
+                if (World.IsBuildFacingPosition(outputTile.building, building.position))
+                    continue;
+                
                 if (acceptor.CanAccept(item) && acceptor.Insert(item))
                 {
                     itemBuffer[index] = null;
@@ -108,6 +112,7 @@ public class SplitLogic : LogisticBuilding
 
         return false;
     }
+    
 
     // ==============================
     // 📐 DIRECCIONES DE SALIDA

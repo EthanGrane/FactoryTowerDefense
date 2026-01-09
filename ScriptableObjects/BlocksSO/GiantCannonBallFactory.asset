@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebf32c8f2934760a0a0b3e0751da967, type: 3}
   m_Name: GiantCannonBallFactory
   m_EditorClassIdentifier: 
-  blockName: Giant Cannon Ball Factory
   size: 2
+  blockName: Giant Cannon Ball Factory
   blockTile: {fileID: 11400000, guid: 6c4d3d7c37c62ed4cba15a2b4b5064e3, type: 2}
   sprite: {fileID: 21300000, guid: aaf947737e5a30e4b8455ef11d50e6e4, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 325
+  buildingCost: []
   solid: 1
   CanBeRemovedByPlayer: 1
   input: {fileID: 11400000, guid: 9f1448e77c0128948ac6ffc528207702, type: 2}

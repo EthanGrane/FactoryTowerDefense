@@ -105,6 +105,30 @@ public class World : MonoBehaviour
 
         return neighbors;
     }
+
+    public static Vector2Int GetDirectionFromRotation(int rotation)
+    {
+        switch (rotation)
+        {
+            case 0:
+                return Vector2Int.up;
+            case 1:
+                return Vector2Int.right;
+            case 2:
+                return Vector2Int.down;
+            case 3:
+                return Vector2Int.left;
+            default:
+                return Vector2Int.up;
+        }
+    }
+    
+    public static bool IsBuildFacingPosition(Building building, Vector2Int pos)
+    {
+        Vector2Int dir = GetDirectionFromRotation(building.rotation);
+        if(building.position + dir == pos) return true;
+        return false;
+    }
     
     void OnDrawGizmos()
     {

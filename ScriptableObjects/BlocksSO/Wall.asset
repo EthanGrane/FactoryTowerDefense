@@ -16,9 +16,10 @@ MonoBehaviour:
   blockName: Wall
   blockTile: {fileID: 11400000, guid: 6dfb166b987e2b347a5da6256f57d1f2, type: 2}
   sprite: {fileID: 7482667652216324306, guid: d379b698fddb69e48b523eeb2c288f2a, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 9999
   buildingCost:
-  - buildingCost: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
+  - requieredItem: {fileID: 11400000, guid: 4929d849d0dae894a8e4221ce0345c1d, type: 2}
     amount: 10
   solid: 1
   CanBeRemovedByPlayer: 1

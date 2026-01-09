@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f95903e25334a9f9ac77da82455eba7, type: 3}
   m_Name: Item Provider
   m_EditorClassIdentifier: 
-  blockName: Creative Item Provider
   size: 1
+  blockName: Creative Item Provider
   blockTile: {fileID: 11400000, guid: bd5e1f7bad2ad6c4d8c87da2d2f6e57a, type: 2}
   sprite: {fileID: -1177259796, guid: 406a2fb5c9d2fb14bab989181183b948, type: 3}
+  mesh: {fileID: 2405915299951446772, guid: 6378a58d61e93574fb89a75592358e56, type: 3}
   blockHealth: 100
+  buildingCost: []
   solid: 0
   CanBeRemovedByPlayer: 1
   item: {fileID: 11400000, guid: 452466037bcb85847b706a4059d82ed6, type: 2}
